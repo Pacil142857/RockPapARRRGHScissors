@@ -3,8 +3,8 @@ from Player import Player
 import pygame
 
 class HumanPlayer(Player):
-    def __init__(self, attack_keybinds=None):
-        super().__init__()
+    def __init__(self, name, attack_keybinds=None):
+        super().__init__(name)
         self.attack_keybinds = attack_keybinds
     
     def chooseAttack(self, key_down_events):

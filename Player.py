@@ -7,16 +7,13 @@ BASE_DAMAGE = 10
 
 class Player:
     __metaclass__ = abc.ABCMeta
-    _name = None
-    _hp = 100
-    _hand = None
-    _chosenAttack = None
     
     # Create a player with 100 HP and basic attacks
-    def __init__(self):
+    def __init__(self, name):
         self._hp = 100
         self._hand = Hand()
-        self._name = "Player"
+        self._name = name
+        self._chosenAttack = None
     
     # Choose an attack to use (abstract method)
     @abc.abstractmethod

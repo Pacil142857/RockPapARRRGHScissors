@@ -8,7 +8,7 @@ class Menu:
         self._screen = screen
         self._width, self._height = screen.get_size()
         self._running = True
-        self._mode = Mode.QUIT
+        self._mode = None
         self._singleplayer = Button((self._width // 2 - 75, self._height - 200, 150, 40), (200, 200, 200),
                                     self.singleplayer, text="Singleplayer (1P)", font_color=(0, 0, 0),
                                     font=pygame.font.Font(None, 24), hover_color=(160, 160, 160))
@@ -49,3 +49,8 @@ class Menu:
     # Check if the main menu is running
     def isRunning(self):
         return self._running
+    
+    # Reset the menu
+    def reset(self):
+        self._running = True
+        self._mode = None

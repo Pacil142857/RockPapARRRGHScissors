@@ -14,7 +14,6 @@ display_width = 800
 display_height = 600
 
 game_display = pygame.display.set_mode((display_width, display_height))
-#
 pygame.display.set_caption('Test')
 
 player1_keybinds = {pygame.K_w: AttackChoice.PAPER, pygame.K_d: AttackChoice.SCISSORS, pygame.K_a: AttackChoice.ROCK} 
@@ -24,30 +23,28 @@ menu = Menu(game_display)
 while menu.isRunning():
     menu.update()
 
-if (menu.getMode() == Mode.QUIT):
-    pygame.quit()
-    quit()
+    if (menu.getMode() == Mode.QUIT):
+        pygame.quit()
+        quit()
 
-if (menu.getMode() == Mode.SINGLEPLAYER):
-    singleplayerMenu = SingleplayerMenu(game_display)
-    while singleplayerMenu.isRunning():
-        singleplayerMenu.update()
+    if (menu.getMode() == Mode.SINGLEPLAYER):
+        singleplayerMenu = SingleplayerMenu(game_display)
+        while singleplayerMenu.isRunning():
+            singleplayerMenu.update()
+        
+        player1 = HumanPlayer(player1_keybinds, name="Player 1")
+        game = Game(game_display, pygame.time.Clock(), player1, singleplayerMenu.getEnemy())
+        while game.isRunning():
+            game.update()
     
-    player1 = HumanPlayer(player1_keybinds)
-    game = Game(game_display, pygame.time.Clock(), player1, singleplayerMenu.getEnemy())
-    while game.isRunning():
-        game.update()
-    
-    pygame.quit()
-    quit()
+    if (menu.getMode() == Mode.MULTIPLAYER):
+        player1 = HumanPlayer(name="Player 1", attack_keybinds=player1_keybinds)
+        player2 = HumanPlayer(name="Player 2", attack_keybinds=player2_keybinds)
 
-player1 = HumanPlayer(player1_keybinds)
-player2 = HumanPlayer(player2_keybinds)
+        game = Game(game_display, pygame.time.Clock(), player1, player2)
+        game.countdown.start()
 
-game = Game(game_display, pygame.time.Clock(), player1, player2)
-game.countdown.start()
-
-while game.game_running:
-    game.update()
-
-pygame.quit()
+        while game.game_running:
+            game.update()
+        
+        menu.reset()
