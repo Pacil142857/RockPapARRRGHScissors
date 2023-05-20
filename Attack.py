@@ -17,6 +17,10 @@ class Attack:
         _choice = choice
         _effect = effect
     
+    def __init__(self, choice):
+        _choice = choice
+        _effect = None
+    
     # Calculate whether this attack wins, ties, or loses against another attack
     def against(self, attack):
         # Losing matchups
