@@ -37,8 +37,9 @@ class Player:
             self._hand = Hand(None)
             player._hand = Hand()
         
-        player._chosenAttack = None
+        # Reset the chosen attack
         self._chosenAttack = None
+        player._chosenAttack = None
 
     # Take a certain amount of damage
     def takeDamage(self, damage):
