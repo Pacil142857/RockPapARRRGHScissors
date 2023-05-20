@@ -20,7 +20,9 @@ class Game:
         
     def update(self):
         if self.game_running:
-            for event in pygame.event.get():
+            game_events = pygame.event.get()
+
+            for event in game_events:
                 if event.type == pygame.QUIT:
                     self.game_running = False
 
@@ -35,9 +37,9 @@ class Game:
                 input_window_time_seconds += clock_elasped_time_second
 
                 if not self.player1.isReady():
-                    self.player1.chooseAttack()
+                    self.player1.chooseAttack(game_events)
                 if not self.player2.isReady():
-                    self.player2.chooseAttack()
+                    self.player2.chooseAttack(game_events)
                     
             elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS and self.player1.isReady() and self.player2.isReady:
                 self.player1.fight(self.player2)

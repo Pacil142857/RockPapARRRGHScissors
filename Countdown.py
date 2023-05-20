@@ -8,7 +8,8 @@ class Countdown:
     def __init__(self, game_display):
         self.current_stage = -1
         self.game_display = game_display
-    
+        self.font = pygame.font.SysFont('Arial', 30)
+
     def start(self):
         self.current_stage = 0
         self.current_stage_time_seconds = 0
@@ -29,4 +30,8 @@ class Countdown:
         if self.current_stage_time_seconds >= Countdown.SECONDS_PER_STAGE:
             self.current_stage += 1
             self.current_stage_time_seconds -= Countdown.SECONDS_PER_STAGE
+        
+        current_stage_text = self.font.render(Countdown.STAGES[self.current_stage], True, (255, 255, 255))
+        current_stage_rect = current_stage_text.get_rect(center=(self.game_display.get_width()//2, self.game_display.get_height()//2 - 50))
+        self.game_display.blit(current_stage_text, current_stage_rect)
         
