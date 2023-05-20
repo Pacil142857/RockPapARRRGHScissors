@@ -2,7 +2,8 @@
 from Countdown import Countdown
 from Game import Game
 from Player import Player
-from Enums import AttackChoice
+from Enums import AttackChoice, Mode
+from Menu import Menu
 import pygame
 
 pygame.init()
@@ -13,6 +14,14 @@ display_height = 600
 game_display = pygame.display.set_mode((display_width, display_height))
 
 pygame.display.set_caption('Test')
+
+menu = Menu(game_display)
+while menu.isRunning():
+    menu.update()
+
+if (menu.getMode() != Mode.MULTIPLAYER):
+    pygame.quit()
+    quit()
 
 player1_keybinds = {pygame.K_w: AttackChoice.PAPER, pygame.K_d: AttackChoice.SCISSORS, pygame.K_a: AttackChoice.ROCK} 
 player2_keybinds = {pygame.K_UP: AttackChoice.PAPER, pygame.K_RIGHT: AttackChoice.SCISSORS, pygame.K_LEFT: AttackChoice.ROCK}

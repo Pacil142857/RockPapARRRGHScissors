@@ -14,3 +14,8 @@ class AttackEffect(Enum):
     EXTRA_DAMAGE = 1
     HEAL_ON_HIT = 2
     WIN_TIES = 3
+
+class Mode(Enum):
+    SINGLEPLAYER = 1
+    MULTIPLAYER = 2
+    QUIT = 0
