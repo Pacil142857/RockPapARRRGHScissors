@@ -13,7 +13,7 @@ class Player:
     _chosenAttack = None
     
     # Create a player with 100 HP and basic attacks
-    def __init__(self, attack_keybinds=None):
+    def __init__(self):
         self._hp = 100
         self._hand = Hand()
         self._name = "Player"
