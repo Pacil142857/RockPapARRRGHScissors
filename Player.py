@@ -20,7 +20,7 @@ class Player:
     
     # Choose an attack to use (abstract method)
     @abc.abstractmethod
-    def chooseAttack(self):
+    def chooseAttack(self, game_events):
         return
     
     # Fight another player

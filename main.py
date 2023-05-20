@@ -18,6 +18,7 @@ player1_keybinds = {pygame.K_w: AttackChoice.PAPER, pygame.K_d: AttackChoice.SCI
 player2_keybinds = {pygame.K_UP: AttackChoice.PAPER, pygame.K_RIGHT: AttackChoice.SCISSORS, pygame.K_LEFT: AttackChoice.ROCK}
 
 game = Game(game_display, pygame.time.Clock(), [player1_keybinds, player2_keybinds])
+game.countdown.start()
 
 while game.game_running:
     game.update()
