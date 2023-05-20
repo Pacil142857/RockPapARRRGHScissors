@@ -1,22 +1,27 @@
 from Enums import GameOutcome
 from Attack import Attack
 from Hand import Hand
+import abc
 
 BASE_DAMAGE = 10
 
 class Player:
+    __metaclass__ = abc.ABCMeta
+    _name = None
     _hp = 100
-    _attacks = None
     _hand = None
+    _chosenAttack = None
     
     # Create a player with 100 HP and basic attacks
     def __init__(self):
         self._hp = 100
         self._hand = Hand()
+        self._name = "Player"
     
-    # Choose an attack to use
-    def chooseAttack(self, choice):
-        _chosenAttack = self._hand.getAttack(choice)
+    # Choose an attack to use (abstract method)
+    @abc.abstractmethod
+    def chooseAttack(self):
+        return
     
     # Fight another player
     def fight(self, player):
@@ -54,4 +59,10 @@ class Player:
     
     def getHP(self):
         return self._hp
+    
+    def getName(self):
+        return self._name
+    
+    def setName(self, name):
+        self._name = name
     
