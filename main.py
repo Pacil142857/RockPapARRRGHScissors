@@ -1,4 +1,5 @@
 #create a starter project using pygame
+from Player import Player
 import pygame
 
 pygame.init()
@@ -12,6 +13,10 @@ pygame.display.set_caption('Test')
 
 white = (255, 255, 255)
 clock = pygame.time.Clock()
+
+
+player1 = Player()
+player2 = Player()
 
 # define a game loop
 def game_loop():
