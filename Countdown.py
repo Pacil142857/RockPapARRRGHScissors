@@ -11,7 +11,7 @@ class Countdown:
         self.current_stage = -1
         self.game_display = game_display
         self.font = pygame.freetype.SysFont('Arial', 30)
-        self.countdown_text = BouncyText(self.font, "", (0, 0), self.game_display)
+        self.countdown_text = BouncyText(self.font, "", (self.game_display.get_width()//2, self.game_display.get_height()//2 - 50), self.game_display)
 
     def start(self):
         self.current_stage = 0
@@ -36,5 +36,6 @@ class Countdown:
             self.current_stage_time_seconds -= Countdown.SECONDS_PER_STAGE
             self.countdown_text.bounce_factor = 1.5
 
+        self.countdown_text.text = Countdown.STAGES[self.current_stage]
         self.countdown_text.update()
         self.countdown_text.draw()
