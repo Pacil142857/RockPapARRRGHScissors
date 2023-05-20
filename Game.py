@@ -1,7 +1,10 @@
+import pygame_gui
 from Countdown import Countdown
 from HumanPlayer import HumanPlayer
 from Player import Player
 import pygame
+
+from PlayerUI import PlayerUI
 
 class Game:
     INPUT_WINDOW_SECONDS = 1
@@ -17,6 +20,9 @@ class Game:
 
         self.countdown = Countdown(self.game_display)
         self.input_window_time_seconds = 0
+
+        self.ui_manager = pygame_gui.UIManager((self.game_display.get_width(), self.game_display.get_height()))
+        self.player1UI = PlayerUI(self.player1, pygame.Rect((0, 0), (self.game_display.get_width()//2, self.game_display.get_height())), self.ui_manager, self.game_display)
         
     def update(self):
         if not self.game_running:
@@ -53,6 +59,11 @@ class Game:
             elif not self.player1.isReady() and not self.player2.isReady():
                 self.input_window_time_seconds = 0
                 self.countdown.stop()
+        
+        self.drawUIElements()
             
         pygame.display.update()
         self.clock.tick(60)
+
+    def drawUIElements(self):
+        self.player1UI.draw()
