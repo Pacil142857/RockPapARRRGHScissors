@@ -9,14 +9,13 @@ from PlayerUI import PlayerUI
 class Game:
     INPUT_WINDOW_SECONDS = 1
 
-    def __init__(self, game_display, clock, player_keybinds):
+    def __init__(self, game_display, clock, player1, player2):
         self.game_display = game_display
         self.clock = clock
         self.game_running = True
-        self.player_keybinds = player_keybinds
 
-        self.player1 = HumanPlayer(player_keybinds[0])
-        self.player2 = HumanPlayer(player_keybinds[1])
+        self.player1 = player1
+        self.player2 = player2
 
         self.countdown = Countdown(self.game_display)
         self.input_window_time_seconds = 0

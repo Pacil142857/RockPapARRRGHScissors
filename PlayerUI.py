@@ -23,7 +23,6 @@ class PlayerUI:
         self.update_health_bar(delta_time)
 
     def update_health_bar(self, delta_time):
-        self.player.takeDamage(0.1)
         percentage_health = self.player.getHP() / 100
 
         # Lerp between green and yellow, then yellow to red
