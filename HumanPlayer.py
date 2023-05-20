@@ -1,3 +1,4 @@
+from Attack import Attack
 from Player import Player
 import pygame
 
@@ -12,7 +13,7 @@ class HumanPlayer(Player):
 
         for event in key_down_events:
             if event.type == pygame.KEYDOWN:
-                self._chosenAttack = self.attack_keybinds.get(event.key)
+                self._chosenAttack = self._hand.getAttack(self.attack_keybinds.get(event.key))
                 
                 if self._chosenAttack is not None:
                     break

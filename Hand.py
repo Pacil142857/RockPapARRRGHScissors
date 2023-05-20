@@ -32,7 +32,10 @@ class Hand:
             return self._rock
         if choice == AttackChoice.PAPER:
             return self._paper
-        return self._scissors
+        if choice == AttackChoice.SCISSORS:
+            return self._scissors
+        
+        return None
     
     def getRock(self):
         return self._rock

@@ -35,9 +35,9 @@ class Game:
             #Reminder: clock.get_time() returns the time since the last call to clock.tick() in milliseconds
             self.countdown.update(clock_elasped_time_second)
 
-            if self.countdown.current_stage == len(Countdown.STAGES):
+            if self.countdown.current_stage >= len(Countdown.STAGES) - 1:
                 if self.input_window_time_seconds < Game.INPUT_WINDOW_SECONDS:
-                    input_window_time_seconds += clock_elasped_time_second
+                    self.input_window_time_seconds += clock_elasped_time_second
 
                     if not self.player1.isReady():
                         self.player1.chooseAttack(key_down_events)

@@ -22,8 +22,6 @@ class Countdown:
         return self.current_stage > -1 and self.current_stage < len(Countdown.STAGES)
 
     def update(self, game_time_seconds):
-        print(f"{self.current_stage_time_seconds} {self.current_stage} {Countdown.STAGES[self.current_stage]}")
-
         if not self.isActive():
             return
 

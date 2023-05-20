@@ -43,7 +43,7 @@ class Player:
     # Take a certain amount of damage
     def takeDamage(self, damage):
         self._hp -= damage
-        self._hp = 0 if self._hp < 0 else self._hps
+        self._hp = 0 if self._hp < 0 else self._hp
     
     # Heal a certain amount
     def heal(self, amount):

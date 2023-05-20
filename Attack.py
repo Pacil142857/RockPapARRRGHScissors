@@ -5,8 +5,8 @@ class Attack:
     _effect = None
 
     def __init__(self, choice, effect=None):
-        _choice = choice
-        _effect = effect
+        self._choice = choice
+        self._effect = effect
     
     # Calculate whether this attack wins, ties, or loses against another attack
     def against(self, attack):
