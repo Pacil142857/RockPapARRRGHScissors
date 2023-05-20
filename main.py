@@ -4,6 +4,7 @@ from Game import Game
 from Player import Player
 from Enums import AttackChoice, Mode
 from Menu import Menu
+from SingleplayerMenu import SingleplayerMenu
 import pygame
 
 pygame.init()
@@ -19,9 +20,14 @@ menu = Menu(game_display)
 while menu.isRunning():
     menu.update()
 
-if (menu.getMode() != Mode.MULTIPLAYER):
+if (menu.getMode() == Mode.QUIT):
     pygame.quit()
     quit()
+
+if (menu.getMode() == Mode.SINGLEPLAYER):
+    singleplayerMenu = SingleplayerMenu()
+    while singleplayerMenu.isRunning():
+        singleplayerMenu.update()
 
 player1_keybinds = {pygame.K_w: AttackChoice.PAPER, pygame.K_d: AttackChoice.SCISSORS, pygame.K_a: AttackChoice.ROCK} 
 player2_keybinds = {pygame.K_UP: AttackChoice.PAPER, pygame.K_RIGHT: AttackChoice.SCISSORS, pygame.K_LEFT: AttackChoice.ROCK}
