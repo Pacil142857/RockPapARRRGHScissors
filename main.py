@@ -6,7 +6,6 @@ from Player import Player
 from Enums import AttackChoice, Mode
 from Menu import Menu
 from SingleplayerMenu import SingleplayerMenu
-from SingleplayerGame import SingleplayerGame
 import pygame
 
 pygame.init()
@@ -34,7 +33,8 @@ if (menu.getMode() == Mode.SINGLEPLAYER):
     while singleplayerMenu.isRunning():
         singleplayerMenu.update()
     
-    game = SingleplayerGame(game_display, pygame.time.Clock(), [player1_keybinds], singleplayerMenu.getEnemy())
+    player1 = HumanPlayer(player1_keybinds)
+    game = Game(game_display, pygame.time.Clock(), player1, singleplayerMenu.getEnemy())
     while game.isRunning():
         game.update()
     
