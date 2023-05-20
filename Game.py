@@ -31,10 +31,16 @@ class Game:
     def update(self):
         delta_time_seconds = self.clock.get_time() / 1000
 
+        self.game_display.fill((255, 255, 255)) #fill with white color
+
         if self.countdown.isActive():
             self.update_countdown(delta_time_seconds)
         else:
             self.update_intermission(delta_time_seconds)
+
+        self.drawUIElements(delta_time_seconds)    
+        pygame.display.update()
+        self.clock.tick(60)
 
     def update_countdown(self, delta_time_seconds):
         if not self.game_running:
@@ -48,8 +54,6 @@ class Game:
             if event.type == pygame.KEYDOWN:
                 key_down_events.append(event)
         
-        self.game_display.fill((255, 255, 255)) #fill with white color
-
         #Reminder: clock.get_time() returns the time since the last call to clock.tick() in milliseconds
         self.countdown.update(delta_time_seconds)
 
@@ -62,21 +66,20 @@ class Game:
                 if not self.player2.isReady():
                     self.player2.chooseAttack(key_down_events)
                     
-            elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS and self.player1.isReady() and self.player2.isReady():
-                self.player1.fight(self.player2)
+            elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS:
+                if self.player1.isReady() and self.player2.isReady():
+                    self.player1.fight(self.player2)
+
                 self.input_window_time_seconds = 0
                 self.countdown.stop()
-            elif not self.player1.isReady() and not self.player2.isReady():
-                self.input_window_time_seconds = 0
-                self.countdown.stop()
+
         
-        self.drawUIElements(delta_time_seconds)
-            
-        pygame.display.update()
-        self.clock.tick(60)
-    
     def update_intermission(self, delta_time_seconds):
-        pass
+        if self.intermission_time_seconds < Game.INTERMISSION_TIME_SECONDS:
+            self.intermission_time_seconds += delta_time_seconds
+        else:
+            self.intermission_time_seconds = 0
+            self.countdown.start()
 
     def drawUIElements(self, delta_time_seconds):
         self.ui_manager.update(delta_time_seconds)
