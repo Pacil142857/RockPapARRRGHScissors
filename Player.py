@@ -34,12 +34,13 @@ class Player:
             player.heal(player._chosenAttack.getHeal(BASE_DAMAGE))
             self._hand = Hand(None)
             player._hand = Hand()
-        
-    
+
+    # Take a certain amount of damage
     def takeDamage(self, damage):
         self._hp -= damage
         self._hp = 0 if self._hp < 0 else self._hps
     
+    # Heal a certain amount
     def heal(self, amount):
         self.takeDamage(-1 * amount)
     
