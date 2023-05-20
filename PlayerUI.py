@@ -23,25 +23,30 @@ class PlayerUI:
         self.update_health_bar(delta_time)
 
     def update_health_bar(self, delta_time):
+        self.player.takeDamage(0.1)
         percentage_health = self.player.getHP() / 100
 
         # Lerp between green and yellow, then yellow to red
-        if percentage_health > 0.5:
+        if percentage_health >= 0.5:
             # Green to yellow
-            new_val = (1 - percentage_health) * 2
-            self.health_bar_color.r = 255
-            self.health_bar_color.g = int(255 * new_val)
+            self.health_bar_color = self.lerp_color(pygame.Color('Green'), pygame.Color('Yellow'), (1 - percentage_health) * 2)
         else:
             # Yellow to red
-            new_val = percentage_health * 2
-            self.health_bar_color.r = int(255 * new_val)
-            self.health_bar_color.g = 255
+            self.health_bar_color = self.lerp_color(pygame.Color('Yellow'), pygame.Color('Red'), 1 - (percentage_health * 2))
 
         self.health_bar_color.a = 0
 
         self._hp_bar.bar_filled_colour = self.health_bar_color
         self._hp_bar.percent_full = percentage_health * 100
-        
+
         self._hp_bar.update(delta_time)
+    
+    def lerp_color(self, start_color, end_color, t):
+        r = start_color.r + (end_color.r - start_color.r) * t
+        g = start_color.g + (end_color.g - start_color.g) * t
+        b = start_color.b + (end_color.b - start_color.b) * t
+        a = start_color.a + (end_color.a - start_color.a) * t
+        
+        return pygame.Color(int(r), int(g), int(b), int(a))
 
 
