@@ -71,7 +71,26 @@ class Finn(Player):
         # Choose the attack that loses to the effect attack
         for i, choice in enumerate(CHOICES):
             if self._hand.getAttack(choice).hasEffect():
-                subtrahend = random.choice((0, 0, 0, 0, 0, 0, 1, 1, 1))
+                subtrahend = random.choice((0, 0, 1))
+                return self._hand.getAttack(CHOICES[(i - subtrahend) % 3])
+        
+        # No effect exists, so choose randomly
+        choice = random.choice(CHOICES)
+        self._chosenAttack = self._hand.getAttack(choice)
+
+class Captain(Player):
+    def __init__(self):
+        self._hp = 100
+        self._hand = Hand()
+        self._name = "The Captain"
+    
+    # The Captain acts as Gunner Gunter 66% of the time, Quartermaster Quartz 17% of the time, and as the
+    # other person who would complement these three 17% of the time.
+    def chooseAttack(self):
+        # Choose the attack that loses to the effect attack
+        for i, choice in enumerate(CHOICES):
+            if self._hand.getAttack(choice).hasEffect():
+                subtrahend = random.choice((0, 0, 0, 0, 1, 2))
                 return self._hand.getAttack(CHOICES[(i - subtrahend) % 3])
         
         # No effect exists, so choose randomly
