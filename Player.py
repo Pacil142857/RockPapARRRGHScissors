@@ -39,6 +39,9 @@ class Player:
             player.heal(player._chosenAttack.getHeal(BASE_DAMAGE))
             self._hand = Hand(None)
             player._hand = Hand()
+        
+        player._chosenAttack = None
+        self._chosenAttack = None
 
     # Take a certain amount of damage
     def takeDamage(self, damage):
