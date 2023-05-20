@@ -12,9 +12,16 @@ class Countdown:
     def start(self):
         self.current_stage = 0
         self.current_stage_time_seconds = 0
+    
+    def stop(self):
+        self.current_stage = -1
+        self.current_stage_time_seconds = 0
+    
+    def isActive(self):
+        return self.current_stage > -1 and self.current_stage < len(Countdown.STAGES)
 
     def update(self, game_time_seconds):
-        if self.current_stage == -1 or self.current_stage == len(Countdown.STAGES):
+        if not self.isActive():
             return
 
         self.current_stage_time_seconds += game_time_seconds
