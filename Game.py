@@ -3,6 +3,7 @@ from Countdown import Countdown
 from HumanPlayer import HumanPlayer
 from Player import Player
 import pygame
+import os
 
 from PlayerUI import PlayerUI
 
@@ -41,6 +42,23 @@ class Game:
             self.update_intermission(delta_time_seconds)
 
         self.drawUIElements(delta_time_seconds)    
+        
+        # Add images of the weapon triangles
+        p1Hand = self.player1.getHand()
+        if p1Hand.getRock().hasEffect():
+            # TODO: Change to buff image
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffs.png")
+        elif p1Hand.getPaper().hasEffect():
+            # TODO: see above
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffs.png")
+        elif p1Hand.getScissors().hasEffect():
+            # TODO: see above
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffs.png")
+        else:
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffs.png")
+        p1Triangle = pygame.transform.scale(p1Triangle, (200, 200))
+        self.game_display.blit(p1Triangle, (50, 350, 300, 170)) # TODO: use relative coordinates
+
         pygame.display.update()
         self.clock.tick(60)
 
@@ -77,7 +95,6 @@ class Game:
 
                 self.input_window_time_seconds = 0
                 self.countdown.stop()
-
         
     def update_intermission(self, delta_time_seconds):
         if self.intermission_time_seconds < Game.INTERMISSION_TIME_SECONDS:

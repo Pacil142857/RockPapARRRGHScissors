@@ -60,6 +60,9 @@ class Player:
     # Check if the player is dead (HP <= 0)
     def isDead(self):
         return self._hp <= 0
+
+    def getHand(self):
+        return self._hand
     
     def getHP(self):
         return self._hp
