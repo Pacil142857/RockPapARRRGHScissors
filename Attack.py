@@ -2,6 +2,7 @@ class Attack:
     _choice = None
     _effect = None
     
+    ROCK = 1
     PAPER = 2
     SCISSORS = 3
 
