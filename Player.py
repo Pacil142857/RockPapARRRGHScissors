@@ -1,33 +1,27 @@
 from Enums import GameOutcome
 from Attack import Attack
 from Hand import Hand
-import pygame
+import abc
 
 BASE_DAMAGE = 10
 
 class Player:
+    __metaclass__ = abc.ABCMeta
+    _name = None
     _hp = 100
-    _attacks = None
     _hand = None
+    _chosenAttack = None
     
     # Create a player with 100 HP and basic attacks
     def __init__(self, attack_keybinds=None):
         self._hp = 100
         self._hand = Hand()
-        self.attack_keybinds = attack_keybinds
+        self._name = "Player"
     
-    #Choose an attack to use based on the keybinds and input from pygame
-    def chooseAttackFromInput(self):
-        if self.attack_keybinds == None:
-            return
-
-        for key, value in self.attack_keybinds.items():
-            if pygame.key.get_pressed()[key]:
-                self.chooseAttack(value)
-    
-    # Choose an attack to use
-    def chooseAttack(self, choice):
-        self._chosenAttack = self._hand.getAttack(choice)
+    # Choose an attack to use (abstract method)
+    @abc.abstractmethod
+    def chooseAttack(self):
+        return
     
     # Fight another player
     def fight(self, player):
@@ -54,4 +48,21 @@ class Player:
     # Heal a certain amount
     def heal(self, amount):
         self.takeDamage(-1 * amount)
+    
+    # Check if the player has already chosen a move
+    def isReady(self):
+        return self._choice != None
+
+    # Check if the player is dead (HP <= 0)
+    def isDead(self):
+        return self._hp <= 0
+    
+    def getHP(self):
+        return self._hp
+    
+    def getName(self):
+        return self._name
+    
+    def setName(self, name):
+        self._name = name
     
