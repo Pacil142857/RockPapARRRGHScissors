@@ -1,4 +1,5 @@
 from Enums import Mode, Enemy
+import AI
 import pygame
 from pygame_button import Button
 
@@ -40,26 +41,29 @@ class SingleplayerMenu:
     def isRunning(self):
         return self._running
     
+    def getEnemy(self):
+        return self._enemy
+    
     def Blunderer(self):
         self._running = False
-        self._enemy = Enemy.BLUNDERER
+        self._enemy = AI.TheBlunderer()
 
     def Randall(self):
         self._running = False
-        self._enemy = Enemy.RANDALL
+        self._enemy = AI.Randall()
 
     def Gunter(self):
         self._running = False
-        self._enemy = Enemy.GUNTER
+        self._enemy = AI.Gunter()
 
     def Quartz(self):
         self._running = False
-        self._enemy = Enemy.QUARTZ
+        self._enemy = AI.Quartz()
 
     def Finn(self):
         self._running = False
-        self._enemy = Enemy.FINN
+        self._enemy = AI.Finn()
 
     def Captain(self):
         self._running = False
-        self._enemy = Enemy.CAPTAIN
+        self._enemy = AI.Captain()

@@ -1,5 +1,5 @@
 import Hand
-import Player
+from Player import Player
 from Enums import AttackChoice
 import random
 
