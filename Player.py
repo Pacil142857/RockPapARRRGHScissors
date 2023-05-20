@@ -43,3 +43,14 @@ class Player:
     def heal(self, amount):
         self.takeDamage(-1 * amount)
     
+    # Check if the player has already chosen a move
+    def isReady(self):
+        return self._choice != None
+
+    # Check if the player is dead (HP <= 0)
+    def isDead(self):
+        return self._hp <= 0
+    
+    def getHP(self):
+        return self._hp
+    
