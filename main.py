@@ -4,7 +4,6 @@ from Game import Game
 from Player import Player
 from Enums import AttackChoice, Mode
 from Menu import Menu
-from SingleplayerMenu import SingleplayerMenu
 import pygame
 
 pygame.init()
@@ -13,22 +12,14 @@ display_width = 800
 display_height = 600
 
 game_display = pygame.display.set_mode((display_width, display_height))
-
+#
 pygame.display.set_caption('Test')
 
 menu = Menu(game_display)
 while menu.isRunning():
     menu.update()
 
-if menu.getMode() == Mode.QUIT:
-    pygame.quit()
-    quit()
-
-if menu.getMode() == Mode.SINGLEPLAYER:
-    singleplayerMenu = SingleplayerMenu(game_display)
-    while singleplayerMenu.isRunning():
-        singleplayerMenu.update()
-    
+if (menu.getMode() != Mode.MULTIPLAYER):
     pygame.quit()
     quit()
 
