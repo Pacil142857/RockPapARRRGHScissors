@@ -71,7 +71,7 @@ class Finn(Player):
         # Choose the attack that loses to the effect attack
         for i, choice in enumerate(CHOICES):
             if self._hand.getAttack(choice).hasEffect():
-                subtrahend = random.choice((0, 0, 0, 0, 0, 0, 1, 1, 1))
+                subtrahend = random.choice((0, 0, 1))
                 return self._hand.getAttack(CHOICES[(i - subtrahend) % 3])
         
         # No effect exists, so choose randomly
