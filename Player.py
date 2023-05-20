@@ -1,6 +1,7 @@
 from Enums import GameOutcome
 from Attack import Attack
 from Hand import Hand
+import pygame
 
 BASE_DAMAGE = 10
 
@@ -10,13 +11,23 @@ class Player:
     _hand = None
     
     # Create a player with 100 HP and basic attacks
-    def __init__(self):
+    def __init__(self, attack_keybinds=None):
         self._hp = 100
         self._hand = Hand()
+        self.attack_keybinds = attack_keybinds
+    
+    #Choose an attack to use based on the keybinds and input from pygame
+    def chooseAttackFromInput(self):
+        if self.attack_keybinds == None:
+            return
+
+        for key, value in self.attack_keybinds.items():
+            if pygame.key.get_pressed()[key]:
+                self.chooseAttack(value)
     
     # Choose an attack to use
     def chooseAttack(self, choice):
-        _chosenAttack = self._hand.getAttack(choice)
+        self._chosenAttack = self._hand.getAttack(choice)
     
     # Fight another player
     def fight(self, player):

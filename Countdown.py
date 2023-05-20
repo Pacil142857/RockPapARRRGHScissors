@@ -22,7 +22,6 @@ class Countdown:
 
     def update(self, game_time_seconds):
         if not self.isActive():
-            self.stop()
             return
 
         self.current_stage_time_seconds += game_time_seconds
