@@ -1,6 +1,8 @@
 import pygame
 import time
 
+from BouncyText import BouncyText
+
 class Countdown:
     STAGES = ['Three', 'Two', 'One', 'Aye!']
     SECONDS_PER_STAGE = 0.75
@@ -9,6 +11,7 @@ class Countdown:
         self.current_stage = -1
         self.game_display = game_display
         self.font = pygame.freetype.SysFont('Arial', 30)
+        self.countdown_text = BouncyText(self.font, "", (0, 0), self.game_display)
 
     def start(self):
         self.current_stage = 0
@@ -31,16 +34,7 @@ class Countdown:
         if self.current_stage_time_seconds >= Countdown.SECONDS_PER_STAGE and self.current_stage < len(Countdown.STAGES) - 1:
             self.current_stage += 1
             self.current_stage_time_seconds -= Countdown.SECONDS_PER_STAGE
-            self.bounce_factor = 1.5
+            self.countdown_text.bounce_factor = 1.5
 
-        current_stage_surface, _ = self.font.render(Countdown.STAGES[self.current_stage], (0, 0, 0))
-        current_stage_rect = current_stage_surface.get_rect(center=(self.game_display.get_width()//2, self.game_display.get_height()//2 - 50))
-                
-        # apply bounce effect
-        if self.bounce_factor > 1.0:
-            self.bounce_factor *= 0.95
-
-        current_stage_surface = pygame.transform.scale(current_stage_surface, (int(current_stage_surface.get_width() * self.bounce_factor), int(current_stage_surface.get_height() * self.bounce_factor)))
-        current_stage_rect = current_stage_surface.get_rect(center=(self.game_display.get_width()//2, self.game_display.get_height()//2 - 50))
-        
-        self.game_display.blit(current_stage_surface, current_stage_rect)
+        self.countdown_text.update()
+        self.countdown_text.draw()

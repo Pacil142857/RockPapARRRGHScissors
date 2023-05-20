@@ -22,6 +22,8 @@ class Game:
         self.input_window_time_seconds = 0
         self.intermission_time_seconds = 0
 
+        self.font = self.countdown.font
+
         display_width, display_height = pygame.display.get_surface().get_size()
 
         self.ui_manager = pygame_gui.UIManager((display_width, display_height))
@@ -80,6 +82,9 @@ class Game:
         else:
             self.intermission_time_seconds = 0
             self.countdown.start()
+    
+    def update_ending(self, delta_time_seconds):
+        pass
 
     def drawUIElements(self, delta_time_seconds):
         self.ui_manager.update(delta_time_seconds)
