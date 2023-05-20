@@ -19,3 +19,11 @@ class Mode(Enum):
     SINGLEPLAYER = 1
     MULTIPLAYER = 2
     QUIT = 0
+
+class Enemy(Enum):
+    BLUNDERER = 1
+    RANDALL = 2
+    GUNTER = 3
+    QUARTZ = 4
+    FINN = 5
+    CAPTAIN = 6
