@@ -10,10 +10,12 @@ class Menu:
         self._running = True
         self._font = pygame.freetype.Font(None, 30)
         self._mode = Mode.QUIT
-        self._singleplayer = Button((self._width // 2 - 70, self._height - 200, 140, 40), (200, 200, 200),
-                                    self.singleplayer, text="Singleplayer (1P)", font_color=(0, 0, 0))
-        self._multiplayer = Button((self._width // 2 - 70, self._height - 140, 140, 40), (200, 200, 200),
-                                   self.multiplayer, text="Multiplayer (2P)", font_color=(0, 0, 0))
+        self._singleplayer = Button((self._width // 2 - 75, self._height - 200, 150, 40), (200, 200, 200),
+                                    self.singleplayer, text="Singleplayer (1P)", font_color=(0, 0, 0),
+                                    font=pygame.font.Font(None, 24), hover_color=(160, 160, 160))
+        self._multiplayer = Button((self._width // 2 - 75, self._height - 140, 150, 40), (200, 200, 200),
+                                   self.multiplayer, text="Multiplayer (2P)", font_color=(0, 0, 0),
+                                   font=pygame.font.Font(None, 24), hover_color=(160, 160, 160))
     
     # Check for button inputs
     def update(self):
