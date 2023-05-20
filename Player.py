@@ -1,5 +1,5 @@
-import Attack
-import Hand
+from Attack import Attack
+from Hand import Hand
 
 BASE_DAMAGE = 10
 
