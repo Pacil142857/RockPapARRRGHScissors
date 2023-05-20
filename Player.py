@@ -1,3 +1,4 @@
+from Enums import GameOutcome
 from Attack import Attack
 from Hand import Hand
 
@@ -22,13 +23,13 @@ class Player:
         result = self._chosenAttack.against(player._chosenAttack)
         
         # You won, so deal damage, get health, and give the opponent an effect in their hand
-        if result == Attack.WIN:
+        if result == GameOutcome.WIN:
             player.takeDamage(self._chosenAttack.getDamage(BASE_DAMAGE))
             self.heal(self._chosenAttack.getHeal(BASE_DAMAGE))
             self._hand = Hand()
             player._hand = Hand(None)
         # You lost, so you take damage, the opponent gets healed, and you get an effect in your hand 
-        elif result == Attack.LOSE:
+        elif result == GameOutcome.LOSE:
             self.takeDamage(player._chosenAttack.getDamage(BASE_DAMAGE))
             player.heal(player._chosenAttack.getHeal(BASE_DAMAGE))
             self._hand = Hand(None)
