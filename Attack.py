@@ -11,21 +11,21 @@ class Attack:
     # Calculate whether this attack wins, ties, or loses against another attack
     def against(self, attack):
         # Losing matchups
-        if self._choice == AttackChoice.ROCK and attack._choice == AttackChoice.PAPER or \
-            self._choice == AttackChoice.PAPER and attack._choice == AttackChoice.SCISSORS or \
-            self._choice == AttackChoice.SCISSORS and attack._choice == AttackChoice.ROCK:
+        if (self._choice == AttackChoice.ROCK and attack._choice == AttackChoice.PAPER) or \
+            (self._choice == AttackChoice.PAPER and attack._choice == AttackChoice.SCISSORS) or \
+            (self._choice == AttackChoice.SCISSORS and attack._choice == AttackChoice.ROCK):
             return GameOutcome.LOSE
 
         # Winning matchups
-        if self._choice == AttackChoice.ROCK and attack._choice == AttackChoice.SCISSORS or \
-            self._choice == AttackChoice.PAPER and attack._choice == AttackChoice.ROCK or \
-            self._choice == AttackChoice.SCISSORS and attack._choice == AttackChoice.PAPER:
+        if (self._choice == AttackChoice.ROCK and attack._choice == AttackChoice.SCISSORS) or \
+            (self._choice == AttackChoice.PAPER and attack._choice == AttackChoice.ROCK) or \
+            (self._choice == AttackChoice.SCISSORS and attack._choice == AttackChoice.PAPER):
             return GameOutcome.WIN
 
         # Ties
-        if self._choice == AttackChoice.ROCK and attack._choice == AttackChoice.ROCK or \
-            self._choice == AttackChoice.PAPER and attack._choice == AttackChoice.PAPER or \
-            self._choice == AttackChoice.SCISSORS and attack._choice == AttackChoice.SCISSORS:
+        if (self._choice == AttackChoice.ROCK and attack._choice == AttackChoice.ROCK) or \
+            (self._choice == AttackChoice.PAPER and attack._choice == AttackChoice.PAPER) or \
+            (self._choice == AttackChoice.SCISSORS and attack._choice == AttackChoice.SCISSORS):
             # The effect is "win ties," so it's actually a win
             if self._effect == AttackEffect.WIN_TIES and not attack._effect == AttackEffect.WIN_TIES:
                 return GameOutcome.WIN
