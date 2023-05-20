@@ -35,21 +35,22 @@ class Game:
             #Reminder: clock.get_time() returns the time since the last call to clock.tick() in milliseconds
             self.countdown.update(clock_elasped_time_second)
 
-            if self.countdown.current_stage >= len(Countdown.STAGES) and self.input_window_time_seconds < Game.INPUT_WINDOW_SECONDS:
-                input_window_time_seconds += clock_elasped_time_second
+            if self.countdown.current_stage == len(Countdown.STAGES):
+                if self.input_window_time_seconds < Game.INPUT_WINDOW_SECONDS:
+                    input_window_time_seconds += clock_elasped_time_second
 
-                if not self.player1.isReady():
-                    self.player1.chooseAttack(key_down_events)
-                if not self.player2.isReady():
-                    self.player2.chooseAttack(key_down_events)
-                    
-            elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS and self.player1.isReady() and self.player2.isReady():
-                self.player1.fight(self.player2)
-                self.input_window_time_seconds = 0
-                self.countdown.stop()
-            elif not self.player1.isReady() and not self.player2.isReady():
-                self.input_window_time_seconds = 0
-                self.countdown.stop()
+                    if not self.player1.isReady():
+                        self.player1.chooseAttack(key_down_events)
+                    if not self.player2.isReady():
+                        self.player2.chooseAttack(key_down_events)
+                        
+                elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS and self.player1.isReady() and self.player2.isReady():
+                    self.player1.fight(self.player2)
+                    self.input_window_time_seconds = 0
+                    self.countdown.stop()
+                elif not self.player1.isReady() and not self.player2.isReady():
+                    self.input_window_time_seconds = 0
+                    self.countdown.stop()
                 
             pygame.display.update()
             self.clock.tick(60)

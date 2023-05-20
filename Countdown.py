@@ -22,16 +22,18 @@ class Countdown:
         return self.current_stage > -1 and self.current_stage < len(Countdown.STAGES)
 
     def update(self, game_time_seconds):
+        print(f"{self.current_stage_time_seconds} {self.current_stage} {Countdown.STAGES[self.current_stage]}")
+
         if not self.isActive():
             return
 
         self.current_stage_time_seconds += game_time_seconds
 
-        if self.current_stage_time_seconds >= Countdown.SECONDS_PER_STAGE:
+        if self.current_stage_time_seconds >= Countdown.SECONDS_PER_STAGE and self.current_stage < len(Countdown.STAGES) - 1:
             self.current_stage += 1
             self.current_stage_time_seconds -= Countdown.SECONDS_PER_STAGE
          
-        current_stage_text = self.font.render(Countdown.STAGES[self.current_stage], True, (255, 255, 255))
+        current_stage_text = self.font.render(Countdown.STAGES[self.current_stage], True, (0, 0, 0))
         current_stage_rect = current_stage_text.get_rect(center=(self.game_display.get_width()//2, self.game_display.get_height()//2 - 50))
         self.game_display.blit(current_stage_text, current_stage_rect)
         
