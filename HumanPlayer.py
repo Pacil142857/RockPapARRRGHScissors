@@ -6,12 +6,15 @@ class HumanPlayer(Player):
         super().__init__()
         self.attack_keybinds = attack_keybinds
     
-    def chooseAttack(self, game_events):
-        # Ask the human player to input their attack choice using Pygame
-        choice = None
+    def chooseAttack(self, key_down_events):
+        if self._chosenAttack is not None:
+            return None
 
-        for event in game_events:
+        for event in key_down_events:
             if event.type == pygame.KEYDOWN:
-                choice = self.attack_keybinds[event.key]
+                self._chosenAttack = self.attack_keybinds.get(event.key)
+                
+                if self._chosenAttack is not None:
+                    break
 
-        return choice
+        return self._chosenAttack

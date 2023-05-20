@@ -20,11 +20,13 @@ class Game:
         
     def update(self):
         if self.game_running:
-            game_events = pygame.event.get()
+            key_down_events = []
 
-            for event in game_events:
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.game_running = False
+                if event.type == pygame.KEYDOWN:
+                    key_down_events.append(event)
 
             clock_elasped_time_second = self.clock.get_time() / 1000.0
             
@@ -32,16 +34,17 @@ class Game:
 
             #Reminder: clock.get_time() returns the time since the last call to clock.tick() in milliseconds
             self.countdown.update(clock_elasped_time_second)
+            print(clock_elasped_time_second)
 
             if self.countdown.current_stage >= len(Countdown.STAGES) and self.input_window_time_seconds < Game.INPUT_WINDOW_SECONDS:
                 input_window_time_seconds += clock_elasped_time_second
 
                 if not self.player1.isReady():
-                    self.player1.chooseAttack(game_events)
+                    self.player1.chooseAttack(key_down_events)
                 if not self.player2.isReady():
-                    self.player2.chooseAttack(game_events)
+                    self.player2.chooseAttack(key_down_events)
                     
-            elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS and self.player1.isReady() and self.player2.isReady:
+            elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS and self.player1.isReady() and self.player2.isReady():
                 self.player1.fight(self.player2)
                 self.input_window_time_seconds = 0
                 self.countdown.stop()
