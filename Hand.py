@@ -5,23 +5,11 @@ class Hand:
     _rock = None
     _paper = None
     _scissors = None
-    
-    # Create a hand with 3 specific attacks
-    def __init__(self, rock, paper, scissors):
-        self._rock = rock
-        self._paper = paper
-        self._scissors = scissors
-    
-    # Create a hand with 3 basic attacks
-    def __init__(self):
-        self._rock = Attack(Attack.ROCK)
-        self._paper = Attack(Attack.PAPER)
-        self._scissors = Attack(Attack.SCISSORS)
         
-    # Create a hand with 1 effect attack
-    def __init__(self, effect):
+    # Create a hand with 3 attacks
+    def __init__(self, effect=None):
         # Get an effect
-        if effect == None:
+        if effect != None:
             effect = random.choice((Attack.EXTRA_DAMAGE, Attack.HEAL_ON_HIT, Attack.WIN_TIES))
         
         # Set default attacks

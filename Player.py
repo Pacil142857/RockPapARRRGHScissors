@@ -25,10 +25,14 @@ class Player:
         if result == Attack.WIN:
             player.takeDamage(self._chosenAttack.getDamage(BASE_DAMAGE))
             self.heal(self._chosenAttack.getHeal(BASE_DAMAGE))
+            self._hand = Hand()
+            player._hand = Hand(None)
         # You lost, so you take damage, the opponent gets healed, and you get an effect in your hand 
         elif result == Attack.LOSE:
             self.takeDamage(player._chosenAttack.getDamage(BASE_DAMAGE))
             player.heal(player._chosenAttack.getHeal(BASE_DAMAGE))
+            self._hand = Hand(None)
+            player._hand = Hand()
         
     
     def takeDamage(self, damage):
