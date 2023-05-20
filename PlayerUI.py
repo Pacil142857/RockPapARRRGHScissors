@@ -9,8 +9,6 @@ class PlayerUI:
         self.screen = screen
 
         self._element_container = pygame_gui.elements.UIPanel(relative_rect=self.container_rect, manager=ui_manager)
-        self._hp_bar = pygame_gui.elements.UIStatusBar(relative_rect=pygame.Rect((0, 0), (self.container_rect.width, 20)), manager=ui_manager, container=self._element_container)
+        self._hp_bar = pygame_gui.elements.UIStatusBar(relative_rect=pygame.Rect((100, 100), (self.container_rect.width, 20)), manager=ui_manager, container=self._element_container)
 
-    def draw(self):
-        self.ui_manager.draw_ui(self.screen)
 

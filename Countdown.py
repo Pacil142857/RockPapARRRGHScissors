@@ -2,7 +2,7 @@ import pygame
 import time
 
 class Countdown:
-    STAGES = ['Three', 'Two', 'Blunderbuss', 'Aye!']
+    STAGES = ['Three', 'Two', 'One', 'Aye!']
     SECONDS_PER_STAGE = 0.75
 
     def __init__(self, game_display):

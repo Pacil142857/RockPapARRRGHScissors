@@ -60,10 +60,11 @@ class Game:
                 self.input_window_time_seconds = 0
                 self.countdown.stop()
         
-        self.drawUIElements()
+        self.drawUIElements(clock_elasped_time_second)
             
         pygame.display.update()
         self.clock.tick(60)
 
-    def drawUIElements(self):
-        self.player1UI.draw()
+    def drawUIElements(self, delta_time):
+        self.ui_manager.update(delta_time)
+        self.ui_manager.draw_ui(self.game_display)
