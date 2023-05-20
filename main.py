@@ -1,6 +1,7 @@
 #create a starter project using pygame
 from Countdown import Countdown
 from Game import Game
+from HumanPlayer import HumanPlayer
 from Player import Player
 from Enums import AttackChoice, Mode
 from Menu import Menu
@@ -40,7 +41,10 @@ if (menu.getMode() == Mode.SINGLEPLAYER):
     pygame.quit()
     quit()
 
-game = Game(game_display, pygame.time.Clock(), [player1_keybinds, player2_keybinds])
+player1 = HumanPlayer(player1_keybinds)
+player2 = HumanPlayer(player2_keybinds)
+
+game = Game(game_display, pygame.time.Clock(), player1, player2)
 game.countdown.start()
 
 while game.game_running:
