@@ -51,7 +51,7 @@ class Player:
     
     # Check if the player has already chosen a move
     def isReady(self):
-        return self._choice != None
+        return self._chosenAttack != None
 
     # Check if the player is dead (HP <= 0)
     def isDead(self):
