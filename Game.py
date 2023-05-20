@@ -21,8 +21,11 @@ class Game:
         self.countdown = Countdown(self.game_display)
         self.input_window_time_seconds = 0
 
-        self.ui_manager = pygame_gui.UIManager((self.game_display.get_width(), self.game_display.get_height()))
-        self.player1UI = PlayerUI(self.player1, pygame.Rect((0, 0), (self.game_display.get_width()//2, self.game_display.get_height())), self.ui_manager, self.game_display)
+        display_width, display_height = pygame.display.get_surface().get_size()
+
+        self.ui_manager = pygame_gui.UIManager((display_width, display_height))
+        self.player1UI = PlayerUI(self.player1, pygame.Rect((0, display_height * 0.67), (display_width / 2, display_height * 0.33)), self.ui_manager, self.game_display)
+        self.player2UI = PlayerUI(self.player2, pygame.Rect((display_width / 2, display_height * 0.67), (display_width / 2, display_height * 0.33)), self.ui_manager, self.game_display)
         
     def update(self):
         if not self.game_running:
