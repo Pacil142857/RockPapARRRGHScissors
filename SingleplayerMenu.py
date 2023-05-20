@@ -10,12 +10,13 @@ class SingleplayerMenu:
         self._running = True
         self._mode = Mode.QUIT
         self._buttons = []
+        self._enemy = None
         
         enemies = (self.Blunderer, self.Randall, self.Gunter, self.Quartz, self.Finn, self.Captain)
         for i, enemy in enumerate(("The Blunderer", "Boatswain Randall", "Gunner Gunter", "Quartermaster Quartz",
                       "First Mate Finn", "The Captain")):
             self._buttons.append(Button((self._width // 2 - 100, self._height // 2 - 170 + 60 * i, 200, 40),
-                                        (200, 200, 200),enemies[i], text=enemy, font_color=(0, 0, 0),
+                                        (200, 200, 200), enemies[i], text=enemy, font_color=(0, 0, 0),
                                         font=pygame.font.Font(None, 24), hover_color=(160, 160, 160)))
     
     # Check for button inputs
@@ -41,24 +42,24 @@ class SingleplayerMenu:
     
     def Blunderer(self):
         self._running = False
-        return Enemy.BLUNDERER
+        self._enemy = Enemy.BLUNDERER
 
     def Randall(self):
         self._running = False
-        return Enemy.RANDALL
+        self._enemy = Enemy.RANDALL
 
     def Gunter(self):
         self._running = False
-        return Enemy.GUNTER
+        self._enemy = Enemy.GUNTER
 
     def Quartz(self):
         self._running = False
-        return Enemy.QUARTZ
+        self._enemy = Enemy.QUARTZ
 
     def Finn(self):
         self._running = False
-        return Enemy.FINN
+        self._enemy = Enemy.FINN
 
     def Captain(self):
         self._running = False
-        return Enemy.CAPTAIN
+        self._enemy = Enemy.CAPTAIN
