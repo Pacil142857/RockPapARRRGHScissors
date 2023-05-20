@@ -1,4 +1,5 @@
 from Enums import Mode, Enemy
+import AI
 import pygame
 from pygame_button import Button
 
@@ -10,12 +11,13 @@ class SingleplayerMenu:
         self._running = True
         self._mode = Mode.QUIT
         self._buttons = []
+        self._enemy = None
         
         enemies = (self.Blunderer, self.Randall, self.Gunter, self.Quartz, self.Finn, self.Captain)
         for i, enemy in enumerate(("The Blunderer", "Boatswain Randall", "Gunner Gunter", "Quartermaster Quartz",
                       "First Mate Finn", "The Captain")):
             self._buttons.append(Button((self._width // 2 - 100, self._height // 2 - 170 + 60 * i, 200, 40),
-                                        (200, 200, 200),enemies[i], text=enemy, font_color=(0, 0, 0),
+                                        (200, 200, 200), enemies[i], text=enemy, font_color=(0, 0, 0),
                                         font=pygame.font.Font(None, 24), hover_color=(160, 160, 160)))
     
     # Check for button inputs
@@ -39,26 +41,29 @@ class SingleplayerMenu:
     def isRunning(self):
         return self._running
     
+    def getEnemy(self):
+        return self._enemy
+    
     def Blunderer(self):
         self._running = False
-        return Enemy.BLUNDERER
+        self._enemy = AI.TheBlunderer()
 
     def Randall(self):
         self._running = False
-        return Enemy.RANDALL
+        self._enemy = AI.Randall()
 
     def Gunter(self):
         self._running = False
-        return Enemy.GUNTER
+        self._enemy = AI.Gunter()
 
     def Quartz(self):
         self._running = False
-        return Enemy.QUARTZ
+        self._enemy = AI.Quartz()
 
     def Finn(self):
         self._running = False
-        return Enemy.FINN
+        self._enemy = AI.Finn()
 
     def Captain(self):
         self._running = False
-        return Enemy.CAPTAIN
+        self._enemy = AI.Captain()

@@ -66,7 +66,10 @@ class Game:
                 if not self.player1.isReady():
                     self.player1.chooseAttack(key_down_events)
                 if not self.player2.isReady():
-                    self.player2.chooseAttack(key_down_events)
+                    if type(self.player2) == HumanPlayer:
+                        self.player2.chooseAttack(key_down_events)
+                    else:
+                        self.player2.chooseAttack()
                     
             elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS:
                 if self.player1.isReady() and self.player2.isReady():
@@ -92,3 +95,6 @@ class Game:
 
         self.player1UI.update(delta_time_seconds)
         self.player2UI.update(delta_time_seconds)
+    
+    def isRunning(self):
+        return self.game_running
