@@ -47,6 +47,10 @@ class Attack:
     def getHeal(self, baseAtk):
         return self.getDamage(baseAtk) if self._effect == AttackEffect.HEAL_ON_HIT else 0
     
+    # Check if this attack has an effect
+    def hasEffect(self):
+        return self._effect != None
+    
     # Getters
     def getChoice(self):
         return self._choice
