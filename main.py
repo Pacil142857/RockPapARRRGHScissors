@@ -24,11 +24,11 @@ menu = Menu(game_display)
 while menu.isRunning():
     menu.update()
 
-if (menu.getMode() == Mode.QUIT):
+if menu.getMode() == Mode.QUIT:
     pygame.quit()
     quit()
 
-if (menu.getMode() == Mode.SINGLEPLAYER):
+if menu.getMode() == Mode.SINGLEPLAYER:
     singleplayerMenu = SingleplayerMenu(game_display)
     while singleplayerMenu.isRunning():
         singleplayerMenu.update()
