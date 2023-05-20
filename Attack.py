@@ -14,13 +14,9 @@ class Attack:
     HEAL_ON_HIT = 2
     WIN_TIES = 3
     
-    def __init__(self, choice, effect):
+    def __init__(self, choice, effect=None):
         _choice = choice
         _effect = effect
-    
-    def __init__(self, choice):
-        _choice = choice
-        _effect = None
     
     # Calculate whether this attack wins, ties, or loses against another attack
     def against(self, attack):
