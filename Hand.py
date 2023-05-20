@@ -1,4 +1,5 @@
-import Attack
+from Enums import AttackChoice, AttackEffect
+from Attack import Attack
 import random
 
 class Hand:
@@ -10,26 +11,26 @@ class Hand:
     def __init__(self, effect=None):
         # Get an effect
         if effect != None:
-            effect = random.choice((Attack.EXTRA_DAMAGE, Attack.HEAL_ON_HIT, Attack.WIN_TIES))
+            effect = random.choice((AttackEffect.EXTRA_DAMAGE, AttackEffect.HEAL_ON_HIT, AttackEffect.WIN_TIES))
         
         # Set default attacks
-        self._rock = Attack(Attack.ROCK)
-        self._paper = Attack(Attack.PAPER)
-        self._scissors = Attack(Attack.SCISSORS)
+        self._rock = Attack(AttackChoice.ROCK)
+        self._paper = Attack(AttackChoice.PAPER)
+        self._scissors = Attack(AttackChoice.SCISSORS)
         
         # Overwrite the effect attack
-        if effect == Attack.EXTRA_DAMAGE:
-            self._rock = Attack(Attack.ROCK, effect)
-        elif effect == Attack.HEAL_ON_HIT:
-            self._paper = Attack(Attack.PAPER, effect)
-        elif effect == Attack.WIN_TIES:
-            self._scissors = Attack(Attack.SCISSORS, effect)
+        if effect == AttackEffect.EXTRA_DAMAGE:
+            self._rock = Attack(AttackChoice.ROCK, effect)
+        elif effect == AttackEffect.HEAL_ON_HIT:
+            self._paper = Attack(AttackChoice.PAPER, effect)
+        elif effect == AttackEffect.WIN_TIES:
+            self._scissors = Attack(AttackChoice.SCISSORS, effect)
     
     # Get the attack used
     def getAttack(self, choice):
-        if choice == Attack.ROCK:
+        if choice == AttackChoice.ROCK:
             return self._rock
-        if choice == Attack.PAPER:
+        if choice == AttackChoice.PAPER:
             return self._paper
         return self._scissors
     
