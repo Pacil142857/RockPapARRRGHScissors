@@ -2,7 +2,7 @@ import pygame
 import time
 
 class Countdown:
-    STAGES = ['Rock', 'Paper', 'Scissors', 'Shoot!']
+    STAGES = ['Flintlock', 'Cutlass', 'Blunderbuss', 'Aye!']
     SECONDS_PER_STAGE = 0.75
 
     def __init__(self, game_display):
@@ -22,6 +22,7 @@ class Countdown:
 
     def update(self, game_time_seconds):
         if not self.isActive():
+            self.stop()
             return
 
         self.current_stage_time_seconds += game_time_seconds
