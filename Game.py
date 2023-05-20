@@ -71,3 +71,6 @@ class Game:
     def drawUIElements(self, delta_time):
         self.ui_manager.update(delta_time)
         self.ui_manager.draw_ui(self.game_display)
+
+        self.player1UI.update(delta_time)
+        self.player2UI.update(delta_time)
