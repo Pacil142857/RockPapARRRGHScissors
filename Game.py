@@ -52,6 +52,9 @@ class Game:
         self.board_texture = pygame.image.load(f"assets{os.sep}images{os.sep}1BottomPart{os.sep}BottomBoard.png")
         self.background_texture = pygame.image.load(f"assets{os.sep}images{os.sep}background.png")
         
+        pygame.mixer.music.load("music.ogg")
+        pygame.mixer.music.play(-1)
+        
     def update(self):
         delta_time_seconds = self.clock.get_time() / 1000
 
@@ -85,6 +88,7 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.game_running = False
+                pygame.mixer.music.stop()
                 pygame.quit()
                 quit()
             if event.type == pygame.KEYDOWN:
@@ -147,6 +151,7 @@ class Game:
         self.gameover_time_seconds += delta_time_seconds
         if self.gameover_time_seconds > Game.GAMEOVER_SECONDS:
             self.game_running = False
+            pygame.mixer.music.stop()
 
         pass
 
