@@ -1,3 +1,4 @@
+import os
 from Enums import Mode
 import pygame
 from pygame_button import Button
@@ -15,6 +16,8 @@ class Menu:
         self._multiplayer = Button((self._width // 2 - 75, self._height - 140, 150, 40), (200, 200, 200),
                                    self.multiplayer, text="Multiplayer (2P)", font_color=(0, 0, 0),
                                    font=pygame.font.SysFont('maturascriptcapitals', 18), hover_color=(160, 160, 160))
+        
+        self._background = pygame.image.load("assets" + os.sep + "images" + os.sep + "backgroundMenu.png")
     
     # Check for button inputs
     def update(self):
@@ -27,6 +30,11 @@ class Menu:
             self._multiplayer.check_event(event)
         
         self._screen.fill((255, 255, 255))
+
+        #transform background to fit screen
+        self._background = pygame.transform.scale(self._background, (self._width, self._height))
+        self._screen.blit(self._background, (0, 0))
+
         self._singleplayer.update(self._screen)
         self._multiplayer.update(self._screen)
         

@@ -1,3 +1,4 @@
+import os
 from Enums import Mode, Enemy
 import AI
 import pygame
@@ -19,6 +20,10 @@ class SingleplayerMenu:
             self._buttons.append(Button((self._width // 2 - 100, self._height // 2 - 170 + 60 * i, 200, 40),
                                         (200, 200, 200), enemies[i], text=enemy, font_color=(0, 0, 0),
                                         font=pygame.font.SysFont('maturascriptcapitals', 18), hover_color=(160, 160, 160)))
+        
+        
+        self._background = pygame.image.load("assets" + os.sep + "images" + os.sep + "backgroundMenu.png")
+
     
     # Check for button inputs
     def update(self):
@@ -31,6 +36,9 @@ class SingleplayerMenu:
                 button.check_event(event)
         
         self._screen.fill((255, 255, 255))
+
+        self._background = pygame.transform.scale(self._background, (self._width, self._height))
+        self._screen.blit(self._background, (0, 0))
         
         for button in self._buttons:
             button.update(self._screen)
