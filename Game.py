@@ -5,6 +5,7 @@ from HumanPlayer import HumanPlayer
 from Player import Player
 import pygame
 import os
+from PlayerSprite import PlayerSprite
 
 from PlayerUI import PlayerUI
 
@@ -26,6 +27,9 @@ class Game:
 
         self.player1 = player1
         self.player2 = player2
+
+        self.player1_sprite = PlayerSprite(self.player1, "test_character", 30, 100, 100)
+        self.player2_sprite = PlayerSprite(self.player2, "test_character", 30, 300, 100)
 
         self.countdown = Countdown(self.game_display)
         self.input_window_time_seconds = 0

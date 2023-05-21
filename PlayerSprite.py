@@ -19,12 +19,12 @@ class PlayerSprite(pygame.sprite.Sprite):
         self.blunderbuss_win_frames = self.load_sprites(f"assets/images/{character_name}/blunderbuss_win")
         self.blunderbuss_lose_frames = self.load_sprites(f"assets/images/{character_name}/blunderbuss_lose")
 
-        self.current_frames = self.win_frames  # Start with the "win" animation
+        self.current_frames = self.idle_frames
 
         # Set the initial image and rect for the sprite
         self.current_frame_index = 0
-        self.image = self.current_frames[self.current_frame_index]
-        self.rect = self.image.get_rect()
+        self.current_sprite = self.current_frames[self.current_frame_index]
+        self.rect = self.current_sprite.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
     
@@ -38,18 +38,24 @@ class PlayerSprite(pygame.sprite.Sprite):
             self.current_frame_index = 0
 
         # Set the current image and rect for the sprite
-        self.image = self.current_frames[int(self.current_frame_index)]
-        self.rect = self.image.get_rect()
+        self.current_sprite = self.current_frames[int(self.current_frame_index)]
+        self.rect = self.current_sprite.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
 
         # Draw the current sprite on the surface
-        surface.blit(self.image, self.rect)
+        surface.blit(self.current_sprite.image, self.rect)
     
     def load_sprites(self, folder_location):
-        sprite_group = pygame.sprite.Group()
+        sprites = []
 
         for filename in os.listdir(folder_location):
-            sprite_group.add(pygame.image.load(os.path.join(folder_location, filename)))
+            sprite = pygame.sprite.Sprite()
+            sprite.image = pygame.image.load(os.path.join(folder_location, filename))
+            sprite.rect = sprite.image.get_rect()
+            sprite.rect.x = self.x
+            sprite.rect.y = self.y
 
-        return sprite_group
+            sprites.append(sprite)
+
+        return sprites
