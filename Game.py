@@ -21,6 +21,8 @@ class Game:
         self.game_display = game_display
         self.clock = clock
         self.game_running = True
+        
+        self.width, self.height = self.game_display.get_size()
 
         self.player1 = player1
         self.player2 = player2
@@ -36,8 +38,8 @@ class Game:
         display_width, display_height = pygame.display.get_surface().get_size()
 
         self.ui_manager = pygame_gui.UIManager((display_width, display_height))
-        self.player1UI = PlayerUI(self.player1, pygame.Rect((0, display_height * 0.67), (display_width / 2, display_height * 0.33)), self.ui_manager, self.game_display)
-        self.player2UI = PlayerUI(self.player2, pygame.Rect((display_width / 2, display_height * 0.67), (display_width / 2, display_height * 0.33)), self.ui_manager, self.game_display)
+        self.player1UI = PlayerUI(self.player1, pygame.Rect((0, display_height * 0.6), (display_width / 2, display_height * 0.4)), self.ui_manager, self.game_display)
+        self.player2UI = PlayerUI(self.player2, pygame.Rect((display_width / 2, display_height * 0.6), (display_width / 2, display_height * 0.4)), self.ui_manager, self.game_display)
 
         self.gameover_text = BouncyText(self.font, "", (self.game_display.get_width()//2, self.game_display.get_height()//2 - 50), self.game_display)
         self.gameover_time_seconds = 0
@@ -60,17 +62,20 @@ class Game:
         p1Hand = self.player1.getHand()
         if p1Hand.getRock().hasEffect():
             # TODO: Change to buff image
-            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffs.png")
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Left.png")
         elif p1Hand.getPaper().hasEffect():
             # TODO: see above
-            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffs.png")
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Left.png")
         elif p1Hand.getScissors().hasEffect():
             # TODO: see above
-            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffs.png")
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Left.png")
         else:
-            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffs.png")
-        p1Triangle = pygame.transform.scale(p1Triangle, (200, 200))
-        self.game_display.blit(p1Triangle, (50, 350, 300, 170)) # TODO: use relative coordinates
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Left.png")
+        sideLen = self.height // (1 / 0.4) - 0
+        y = self.height - sideLen + 35
+        x = self.width // 4 - sideLen // 2
+        p1Triangle = pygame.transform.scale(p1Triangle, (sideLen, sideLen))
+        self.game_display.blit(p1Triangle, (x, y, sideLen, sideLen)) # TODO: use relative coordinates
 
         pygame.display.update()
         self.clock.tick(60)
@@ -84,6 +89,8 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.game_running = False
+                pygame.quit()
+                quit()
             if event.type == pygame.KEYDOWN:
                 key_down_events.append(event)
         
