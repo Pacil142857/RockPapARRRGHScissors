@@ -13,6 +13,10 @@ pygame.init()
 info = pygame.display.Info()
 
 game_display = pygame.display.set_mode((info.current_w - 40, info.current_h - 90))
+
+#this line is temporary and will be removed later. its just to make the game be less annyoing to use while testing
+#game_display = pygame.display.set_mode((800, 600))
+
 pygame.display.set_caption('Test')
 
 player1_keybinds = {pygame.K_w: AttackChoice.PAPER, pygame.K_d: AttackChoice.ROCK, pygame.K_a: AttackChoice.SCISSORS} 
