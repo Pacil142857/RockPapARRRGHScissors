@@ -31,7 +31,7 @@ while menu.isRunning():
         while singleplayerMenu.isRunning():
             singleplayerMenu.update()
         
-        player1 = HumanPlayer(player1_keybinds, name="Player 1")
+        player1 = HumanPlayer("Player 1", player1_keybinds)
         game = Game(game_display, pygame.time.Clock(), player1, singleplayerMenu.getEnemy())
         while game.isRunning():
             game.update()
