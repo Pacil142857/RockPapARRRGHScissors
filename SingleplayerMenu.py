@@ -24,12 +24,12 @@ class SingleplayerMenu:
         
         self._background = pygame.image.load("assets" + os.sep + "images" + os.sep + "backgroundMenu.png")
         
-        self._background_images = self.load_sprites(f"assets{os.sep}images{os.sep}backgroundMenu")
+        self._background_images = self.load_sprites(f"assets{os.sep}images{os.sep}MenuLOOOOOOP")
         self._background_index = 0
         self._background_image = self._background_images[self._background_index]
 
         self._counting_up = True
-        self.frames_per_second = 10
+        self.frames_per_second = 30
         self.frame_count = 0
 
     
@@ -51,7 +51,7 @@ class SingleplayerMenu:
         # increment or decrement background index every FPS
         time_per_frame = 1.0 / self.frames_per_second
         self.frame_count += 1
-        if self.frame_count >= time_per_frame * 1000:
+        if self.frame_count >= time_per_frame * 100:
             if self._background_index < len(self._background_images) - 1 and self._counting_up:
                 self._background_index += 1
             elif self._background_index == len(self._background_images) - 1:
@@ -62,7 +62,7 @@ class SingleplayerMenu:
             elif self._background_index == 0:
                 self._counting_up = True
                 self._background_index += 1
-            self.frame_count -= time_per_frame * 1000
+            self.frame_count -= time_per_frame * 100
 
         self._background = pygame.transform.scale(self._background_image.image, (self._width, self._height))
         self._screen.blit(self._background, (0, 0))
