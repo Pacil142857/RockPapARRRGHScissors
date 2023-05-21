@@ -11,7 +11,7 @@ from PlayerSprite import PlayerSprite
 from PlayerUI import PlayerUI
 
 class Game:
-    INPUT_WINDOW_SECONDS = 1
+    INPUT_WINDOW_SECONDS = 0.5
     INTERMISSION_TIME_SECONDS = 3
     GAMEOVER_SECONDS = 3
 
@@ -63,6 +63,12 @@ class Game:
             self.update_intermission(delta_time_seconds)
         elif self.gamestate == Game.GAMEOVER:
             self.update_ending(delta_time_seconds)
+
+        #stretch the background texture so that it matches the size of the game display
+        self.background_texture = pygame.transform.scale(self.background_texture, (self.game_display.get_width(), self.game_display.get_height()))
+
+        #draw the background texture
+        self.game_display.blit(self.background_texture, (0, 0))
 
         self.drawUIElements(delta_time_seconds)
         self.drawPlayers(delta_time_seconds)
@@ -154,12 +160,6 @@ class Game:
 
         #draw the texture board using the container rect of player1UI
         self.game_display.blit(self.board_texture, self.player1UI.container_rect)
-
-        #stretch the background texture so that it matches the size of the game display
-        self.background_texture = pygame.transform.scale(self.background_texture, (self.game_display.get_width(), self.game_display.get_height()))
-
-        #draw the background texture
-        self.game_display.blit(self.background_texture, (0, 0))
 
         self.ui_manager.update(delta_time_seconds)
         self.ui_manager.draw_ui(self.game_display)
