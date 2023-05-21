@@ -18,7 +18,7 @@ class SingleplayerMenu:
                       "First Mate Finn", "The Captain")):
             self._buttons.append(Button((self._width // 2 - 100, self._height // 2 - 170 + 60 * i, 200, 40),
                                         (200, 200, 200), enemies[i], text=enemy, font_color=(0, 0, 0),
-                                        font=pygame.font.Font(None, 24), hover_color=(160, 160, 160)))
+                                        font=pygame.font.SysFont('maturascriptcapitals', 18), hover_color=(160, 160, 160)))
     
     # Check for button inputs
     def update(self):

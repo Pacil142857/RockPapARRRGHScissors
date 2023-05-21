@@ -10,7 +10,7 @@ class Countdown:
     def __init__(self, game_display):
         self.current_stage = -1
         self.game_display = game_display
-        self.font = pygame.freetype.SysFont('Arial', 30)
+        self.font = pygame.freetype.SysFont('maturascriptcapitals', 30)
         self.countdown_text = BouncyText(self.font, "", (self.game_display.get_width()//2, self.game_display.get_height()//2 - 50), self.game_display)
 
     def start(self):

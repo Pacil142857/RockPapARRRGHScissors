@@ -22,7 +22,7 @@ class PlayerUI:
         self._hp_bar.border_width = 2
 
         # Adding Player Name
-        self._font = pygame.freetype.SysFont('Arial', 20)
+        self._font = pygame.freetype.SysFont('maturascriptcapitals', 20)
         self._surface, _ = self._font.render(self.player.getName(), (0, 0, 0))
         
     def update(self, delta_time):
