@@ -5,7 +5,7 @@ from BouncyText import BouncyText
 
 class Countdown:
     STAGES = ['Three', 'Two', 'One', 'Aye!']
-    SECONDS_PER_STAGE = 0.75
+    SECONDS_PER_STAGE = 0.50
 
     def __init__(self, game_display):
         self.current_stage = -1
