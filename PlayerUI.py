@@ -1,5 +1,6 @@
 import pygame
 import pygame_gui
+import os
 
 class PlayerUI:
     def __init__(self, player, container_rect, ui_manager, screen):
@@ -14,6 +15,8 @@ class PlayerUI:
         bar_thickness = 50
 
         self._element_container = pygame_gui.elements.UIPanel(relative_rect=self.container_rect, manager=ui_manager)
+        self._element_container.image = None
+
         self._hp_bar = pygame_gui.elements.UIStatusBar(relative_rect=pygame.Rect((0, 0), (container_width, bar_thickness)), manager=ui_manager, container=self._element_container)
         self._hp_bar.border_colour = pygame.Color('Grey')
         self._hp_bar.border_width = 2
@@ -24,6 +27,9 @@ class PlayerUI:
         
     def update(self, delta_time):
         self.update_health_bar(delta_time)
+        self._element_container.update(delta_time)
+
+        self._element_container.background_colour = pygame.Color('White')
                
         rect = self._surface.get_rect(center=(self._hp_bar.rect.centerx, self._hp_bar.rect.centery))
         self.screen.blit(self._surface, rect)

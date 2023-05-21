@@ -48,6 +48,8 @@ class Game:
 
         self.gameover_text = BouncyText(self.font, "", (self.game_display.get_width()//2, self.game_display.get_height()//2 - 50), self.game_display)
         self.gameover_time_seconds = 0
+
+        self.board_texture = pygame.image.load(f"assets{os.sep}images{os.sep}1BottomPart{os.sep}BottomBoard.png")
         
     def update(self):
         delta_time_seconds = self.clock.get_time() / 1000
@@ -146,6 +148,12 @@ class Game:
         self.player2_sprite.draw(delta_time_seconds, self.game_display)
 
     def drawUIElements(self, delta_time_seconds):
+        #stretch the border texture so that it matches the hieght of the container rect of player1UI
+        self.board_texture = pygame.transform.scale(self.board_texture, (self.player1UI.container_rect.width * 2, self.player1UI.container_rect.height))
+
+        #draw the texture board using the container rect of player1UI
+        self.game_display.blit(self.board_texture, self.player1UI.container_rect)
+
         self.ui_manager.update(delta_time_seconds)
         self.ui_manager.draw_ui(self.game_display)
 
