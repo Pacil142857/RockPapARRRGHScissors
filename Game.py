@@ -32,6 +32,14 @@ class Game:
         self.player1_sprite = PlayerSprite(self.player1, "test_character", 2, 100, 100)
         self.player2_sprite = PlayerSprite(self.player2, "test_character", 2, 300, 100)
 
+        self._background_images = self.load_sprites(f"assets{os.sep}images{os.sep}Idle")
+        self._background_index = 0
+        self._background_image = self._background_images[self._background_index]
+
+        self._counting_up = True
+        self.frames_per_second = 30
+        self.frame_count = 0
+
         self.countdown = Countdown(self.game_display)
         self.input_window_time_seconds = 0
         self.intermission_time_seconds = 0
@@ -58,13 +66,31 @@ class Game:
     def update(self):
         delta_time_seconds = self.clock.get_time() / 1000
 
-        self.game_display.fill((255, 255, 255)) #fill with white color
+        self.game_display.fill((65, 168, 209)) #fill with white color
         
-        #stretch the background texture so that it matches the size of the game display
-        self.background_texture = pygame.transform.scale(self.background_texture, (self.game_display.get_width(), self.game_display.get_height()))
+        #transform background to fit screen
+        self._background_image = self._background_images[self._background_index]
 
-        #draw the background texture
-        self.game_display.blit(self.background_texture, (0, 0))
+         # increment or decrement background index every FPS
+        time_per_frame = 1.0 / self.frames_per_second
+        self.frame_count += 1
+        if self.frame_count >= time_per_frame * 100:
+            if self._background_index < len(self._background_images) - 1 and self._counting_up:
+                self._background_index += 1
+            elif self._background_index == len(self._background_images) - 1:
+                self._counting_up = False
+                self._background_index -= 1
+            elif self._background_index > 0 and not self._counting_up:
+                self._background_index -= 1
+            elif self._background_index == 0:
+                self._counting_up = True
+                self._background_index += 1
+            self.frame_count -= time_per_frame * 100
+
+
+        display_width, display_height = pygame.display.get_surface().get_size()
+        self._background = pygame.transform.scale(self._background_image.image, (display_width, display_height * 0.66))
+        self.game_display.blit(self._background, (0, 0))
 
         if self.gamestate == Game.COUNTDOWN:
             self.update_countdown(delta_time_seconds)
@@ -74,7 +100,7 @@ class Game:
             self.update_ending(delta_time_seconds)
 
         self.drawUIElements(delta_time_seconds)
-        self.drawPlayers(delta_time_seconds)
+        #self.drawPlayers(delta_time_seconds)
 
         pygame.display.update()
         self.clock.tick(60)
@@ -205,3 +231,15 @@ class Game:
     
     def isRunning(self):
         return self.game_running
+
+    def load_sprites(self, folder_location):
+        sprites = []
+
+        for filename in sorted(os.listdir(folder_location)):
+            sprite = pygame.sprite.Sprite()
+            sprite.image = pygame.image.load(os.path.join(folder_location, filename))
+            sprite.rect = sprite.image.get_rect()
+
+            sprites.append(sprite)
+
+        return sprites

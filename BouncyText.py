@@ -10,7 +10,7 @@ class BouncyText:
         self.bounce_factor = 1.0
         
     def update(self):
-        surface, _ = self.font.render(self.text, (0, 0, 0))   
+        surface, _ = self.font.render(self.text, (255, 255, 255))   
                 
         if self.bounce_factor > 1.0:
             self.bounce_factor *= 0.95
