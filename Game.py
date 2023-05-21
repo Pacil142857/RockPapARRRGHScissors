@@ -50,6 +50,7 @@ class Game:
         self.gameover_time_seconds = 0
 
         self.board_texture = pygame.image.load(f"assets{os.sep}images{os.sep}1BottomPart{os.sep}BottomBoard.png")
+        self.background_texture = pygame.image.load(f"assets{os.sep}images{os.sep}background.png")
         
     def update(self):
         delta_time_seconds = self.clock.get_time() / 1000
@@ -153,6 +154,12 @@ class Game:
 
         #draw the texture board using the container rect of player1UI
         self.game_display.blit(self.board_texture, self.player1UI.container_rect)
+
+        #stretch the background texture so that it matches the size of the game display
+        self.background_texture = pygame.transform.scale(self.background_texture, (self.game_display.get_width(), self.game_display.get_height()))
+
+        #draw the background texture
+        self.game_display.blit(self.background_texture, (0, 0))
 
         self.ui_manager.update(delta_time_seconds)
         self.ui_manager.draw_ui(self.game_display)
