@@ -18,6 +18,14 @@ class Menu:
                                    font=pygame.font.SysFont('maturascriptcapitals', 18), hover_color=(160, 160, 160))
         
         self._background = pygame.image.load("assets" + os.sep + "images" + os.sep + "backgroundMenu.png")
+
+        self._background_images = self.load_sprites(f"assets{os.sep}images{os.sep}backgroundMenu")
+        self._background_index = 0
+        self._background_image = self._background_images[self._background_index]
+
+        self._counting_up = True
+        self.frames_per_second = 10
+        self.frame_count = 0
     
     # Check for button inputs
     def update(self):
@@ -32,7 +40,25 @@ class Menu:
         self._screen.fill((255, 255, 255))
 
         #transform background to fit screen
-        self._background = pygame.transform.scale(self._background, (self._width, self._height))
+        self._background_image = self._background_images[self._background_index]
+
+         # increment or decrement background index every FPS
+        time_per_frame = 1.0 / self.frames_per_second
+        self.frame_count += 1
+        if self.frame_count >= time_per_frame * 1000:
+            if self._background_index < len(self._background_images) - 1 and self._counting_up:
+                self._background_index += 1
+            elif self._background_index == len(self._background_images) - 1:
+                self._counting_up = False
+                self._background_index -= 1
+            elif self._background_index > 0 and not self._counting_up:
+                self._background_index -= 1
+            elif self._background_index == 0:
+                self._counting_up = True
+                self._background_index += 1
+            self.frame_count -= time_per_frame * 1000
+
+        self._background = pygame.transform.scale(self._background_image.image, (self._width, self._height))
         self._screen.blit(self._background, (0, 0))
 
         self._singleplayer.update(self._screen)
@@ -62,3 +88,15 @@ class Menu:
     def reset(self):
         self._running = True
         self._mode = None
+    
+    def load_sprites(self, folder_location):
+        sprites = []
+
+        for filename in sorted(os.listdir(folder_location)):
+            sprite = pygame.sprite.Sprite()
+            sprite.image = pygame.image.load(os.path.join(folder_location, filename))
+            sprite.rect = sprite.image.get_rect()
+
+            sprites.append(sprite)
+
+        return sprites
