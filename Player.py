@@ -41,6 +41,8 @@ class Player:
         self._chosenAttack = None
         player._chosenAttack = None
 
+        return result
+
     # Take a certain amount of damage
     def takeDamage(self, damage):
         self._hp -= damage

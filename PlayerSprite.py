@@ -36,6 +36,7 @@ class PlayerSprite(pygame.sprite.Sprite):
         self.current_frame_index += delta_time_seconds / time_per_frame
         if self.current_frame_index >= len(self.current_frames):
             self.current_frame_index = 0
+            self.current_frames = self.idle_frames
 
         # Set the current image and rect for the sprite
         self.current_sprite = self.current_frames[int(self.current_frame_index)]
@@ -45,6 +46,18 @@ class PlayerSprite(pygame.sprite.Sprite):
 
         # Draw the current sprite on the surface
         surface.blit(self.current_sprite.image, self.rect)
+    
+    def change_anim(self, game_outcome, is_blunderbuss):
+        if game_outcome == GameOutcome.WIN:
+            self.current_frames = self.win_frames if not is_blunderbuss else self.blunderbuss_win_frames
+        elif game_outcome == GameOutcome.TIE:
+            self.current_frames = self.tie_frames
+        elif game_outcome == GameOutcome.LOSE:
+            self.current_frames = self.lose_frames if not is_blunderbuss else self.blunderbuss_lose_frames
+        else:
+            self.current_frames = self.idle_frames
+
+        self.current_frame_index = 0
     
     def load_sprites(self, folder_location):
         sprites = []

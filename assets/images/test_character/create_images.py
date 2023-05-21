@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 colors = [(255, 0, 0), (235, 64, 52), (214, 128, 102), (193, 191, 153), (128, 191, 204),
           (77, 166, 255), (64, 128, 255), (51, 64, 235), (38, 0, 215), (25, 0, 192)]
 
-folders = ['blunderbuss_lose', 'blunderbuss_win', 'idle', 'lose', 'win']
+folders = ['blunderbuss_lose', 'blunderbuss_win', 'idle', 'lose', 'win', 'tie']
 
 for folder in folders:
     # Create images with the colors and save them in a folder

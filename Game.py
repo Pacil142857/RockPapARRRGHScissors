@@ -1,6 +1,7 @@
 import pygame_gui
 from BouncyText import BouncyText
 from Countdown import Countdown
+from Enums import GameOutcome, AttackChoice
 from HumanPlayer import HumanPlayer
 from Player import Player
 import pygame
@@ -97,7 +98,18 @@ class Game:
                     
             elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS:
                 if self.player1.isReady() and self.player2.isReady():
-                    self.player1.fight(self.player2)
+                    is_blunderbuss = self.player1._chosenAttack == AttackChoice.SCISSORS and self.player2._chosen_attack == AttackChoice.SCISSORS
+                    result = self.player1.fight(self.player2)
+
+                    if result == GameOutcome.WIN:
+                        self.player1_sprite.change_anim(result, is_blunderbuss)
+                        self.player2_sprite.change_anim(GameOutcome.LOSE, is_blunderbuss)
+                    elif result == GameOutcome.LOSE:
+                        self.player1_sprite.change_anim(result, is_blunderbuss)
+                        self.player2_sprite.change_anim(GameOutcome.WIN, is_blunderbuss)
+                    elif result == GameOutcome.TIE:
+                        self.player1_sprite.change_anim(result, is_blunderbuss)
+                        self.player2_sprite.change_anim(result, is_blunderbuss)
 
                 self.input_window_time_seconds = 0
                 self.countdown.stop()
