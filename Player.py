@@ -29,12 +29,12 @@ class Player:
             player.takeDamage(self._chosenAttack.getDamage(BASE_DAMAGE))
             self.heal(self._chosenAttack.getHeal(BASE_DAMAGE))
             self._hand = Hand()
-            player._hand = Hand(None)
+            player._hand = Hand(True)
         # You lost, so you take damage, the opponent gets healed, and you get an effect in your hand 
         elif result == GameOutcome.LOSE:
             self.takeDamage(player._chosenAttack.getDamage(BASE_DAMAGE))
             player.heal(player._chosenAttack.getHeal(BASE_DAMAGE))
-            self._hand = Hand(None)
+            self._hand = Hand(True)
             player._hand = Hand()
         
         # Reset the chosen attack

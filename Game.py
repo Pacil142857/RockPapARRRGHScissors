@@ -56,26 +56,7 @@ class Game:
         elif self.gamestate == Game.GAMEOVER:
             self.update_ending(delta_time_seconds)
 
-        self.drawUIElements(delta_time_seconds)    
-        
-        # Add images of the weapon triangles
-        p1Hand = self.player1.getHand()
-        if p1Hand.getRock().hasEffect():
-            # TODO: Change to buff image
-            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Left.png")
-        elif p1Hand.getPaper().hasEffect():
-            # TODO: see above
-            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Left.png")
-        elif p1Hand.getScissors().hasEffect():
-            # TODO: see above
-            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Left.png")
-        else:
-            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Left.png")
-        sideLen = self.height // (1 / 0.4) - 0
-        y = self.height - sideLen + 35
-        x = self.width // 4 - sideLen // 2
-        p1Triangle = pygame.transform.scale(p1Triangle, (sideLen, sideLen))
-        self.game_display.blit(p1Triangle, (x, y, sideLen, sideLen)) # TODO: use relative coordinates
+        self.drawUIElements(delta_time_seconds)
 
         pygame.display.update()
         self.clock.tick(60)
@@ -149,6 +130,37 @@ class Game:
 
         self.player1UI.update(delta_time_seconds)
         self.player2UI.update(delta_time_seconds)
+        
+        # Add images of the weapon triangles
+        p1Hand = self.player1.getHand()
+        if p1Hand.getRock().hasEffect():
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffRock.png")
+        elif p1Hand.getPaper().hasEffect():
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffPaper.png")
+        elif p1Hand.getScissors().hasEffect():
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "LeftBuffScissors.png")
+        else:
+            p1Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Left.png")
+        sideLen = self.height // (1 / 0.4) - 40
+        y = self.height - sideLen - 5
+        x = self.width // 4 - sideLen // 2
+        p1Triangle = pygame.transform.scale(p1Triangle, (sideLen, sideLen))
+        self.game_display.blit(p1Triangle, (x, y, sideLen, sideLen))
+        
+        p2Hand = self.player2.getHand()
+        if p2Hand.getRock().hasEffect():
+            p2Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "RightBuffRock.png")
+        elif p2Hand.getPaper().hasEffect():
+            p2Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "RightBuffPaper.png")
+        elif p2Hand.getScissors().hasEffect():
+            p2Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "RightBuffScissors.png")
+        else:
+            p2Triangle = pygame.image.load("assets" + os.sep + "images" + os.sep + "1BottomPart" + os.sep + "Right.png")
+        sideLen = self.height // (1 / 0.4) - 40
+        y = self.height - sideLen - 5
+        x = self.width // 4 * 3 - sideLen // 2
+        p2Triangle = pygame.transform.scale(p2Triangle, (sideLen, sideLen))
+        self.game_display.blit(p2Triangle, (x, y, sideLen, sideLen))
     
     def isRunning(self):
         return self.game_running
