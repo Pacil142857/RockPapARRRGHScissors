@@ -10,10 +10,9 @@ import pygame
 
 pygame.init()
 
-display_width = 800
-display_height = 600
+info = pygame.display.Info()
 
-game_display = pygame.display.set_mode((display_width, display_height))
+game_display = pygame.display.set_mode((info.current_w - 40, info.current_h - 90))
 pygame.display.set_caption('Test')
 
 player1_keybinds = {pygame.K_w: AttackChoice.PAPER, pygame.K_d: AttackChoice.ROCK, pygame.K_a: AttackChoice.SCISSORS} 
