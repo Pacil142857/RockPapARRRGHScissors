@@ -49,7 +49,7 @@ class PlayerSprite(pygame.sprite.Sprite):
     def load_sprites(self, folder_location):
         sprites = []
 
-        for filename in os.listdir(folder_location):
+        for filename in sorted(os.listdir(folder_location)):
             sprite = pygame.sprite.Sprite()
             sprite.image = pygame.image.load(os.path.join(folder_location, filename))
             sprite.rect = sprite.image.get_rect()

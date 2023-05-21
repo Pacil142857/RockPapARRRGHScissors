@@ -28,8 +28,8 @@ class Game:
         self.player1 = player1
         self.player2 = player2
 
-        self.player1_sprite = PlayerSprite(self.player1, "test_character", 30, 100, 100)
-        self.player2_sprite = PlayerSprite(self.player2, "test_character", 30, 300, 100)
+        self.player1_sprite = PlayerSprite(self.player1, "test_character", 2, 100, 100)
+        self.player2_sprite = PlayerSprite(self.player2, "test_character", 2, 300, 100)
 
         self.countdown = Countdown(self.game_display)
         self.input_window_time_seconds = 0
@@ -61,6 +61,7 @@ class Game:
             self.update_ending(delta_time_seconds)
 
         self.drawUIElements(delta_time_seconds)
+        self.drawPlayers(delta_time_seconds)
 
         pygame.display.update()
         self.clock.tick(60)
@@ -129,8 +130,8 @@ class Game:
         pass
 
     def drawPlayers(self, delta_time_seconds):
-        self.player1_sprite.draw(delta_time_seconds)
-        self.player2_sprite.draw(delta_time_seconds)
+        self.player1_sprite.draw(delta_time_seconds, self.game_display)
+        self.player2_sprite.draw(delta_time_seconds, self.game_display)
 
     def drawUIElements(self, delta_time_seconds):
         self.ui_manager.update(delta_time_seconds)
