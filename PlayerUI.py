@@ -18,9 +18,15 @@ class PlayerUI:
         self._hp_bar.border_colour = pygame.Color('Grey')
         self._hp_bar.border_width = 2
 
+        # Adding Player Name
+        self._font = pygame.freetype.SysFont('Arial', 20)
+        self._surface, _ = self._font.render(self.player.getName(), (0, 0, 0))
         
     def update(self, delta_time):
         self.update_health_bar(delta_time)
+               
+        rect = self._surface.get_rect(center=(self._hp_bar.rect.centerx, self._hp_bar.rect.centery))
+        self.screen.blit(self._surface, rect)
 
     def update_health_bar(self, delta_time):
         percentage_health = self.player.getHP() / 100
