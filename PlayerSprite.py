@@ -12,12 +12,12 @@ class PlayerSprite(pygame.sprite.Sprite):
         self.y = y
         self.frames_per_second = frames_per_second
 
-        self.idle_frames = self.load_sprites(f"assets/images/{character_name}/idle")
-        self.win_frames = self.load_sprites(f"assets/images/{character_name}/win")
-        self.tie_frames = self.load_sprites(f"assets/images/{character_name}/tie")
-        self.lose_frames = self.load_sprites(f"assets/images/{character_name}/lose")
-        self.blunderbuss_win_frames = self.load_sprites(f"assets/images/{character_name}/blunderbuss_win")
-        self.blunderbuss_lose_frames = self.load_sprites(f"assets/images/{character_name}/blunderbuss_lose")
+        self.idle_frames = self.load_sprites(f"assets{os.sep}images{os.sep}{character_name}{os.sep}idle")
+        self.win_frames = self.load_sprites(f"assets{os.sep}images{os.sep}{character_name}{os.sep}win")
+        self.tie_frames = self.load_sprites(f"assets{os.sep}images{os.sep}{character_name}{os.sep}tie")
+        self.lose_frames = self.load_sprites(f"assets{os.sep}images{os.sep}{character_name}{os.sep}lose")
+        self.blunderbuss_win_frames = self.load_sprites(f"assets{os.sep}images{os.sep}{character_name}{os.sep}blunderbuss_win")
+        self.blunderbuss_lose_frames = self.load_sprites(f"assets{os.sep}images{os.sep}{character_name}{os.sep}blunderbuss_lose")
 
         self.current_frames = self.idle_frames
 

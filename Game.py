@@ -128,6 +128,10 @@ class Game:
 
         pass
 
+    def drawPlayers(self, delta_time_seconds):
+        self.player1_sprite.draw(delta_time_seconds)
+        self.player2_sprite.draw(delta_time_seconds)
+
     def drawUIElements(self, delta_time_seconds):
         self.ui_manager.update(delta_time_seconds)
         self.ui_manager.draw_ui(self.game_display)
