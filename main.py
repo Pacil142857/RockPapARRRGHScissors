@@ -34,7 +34,7 @@ while menu.isRunning():
         
         player1 = HumanPlayer("Player 1", player1_keybinds)
         game = Game(game_display, pygame.time.Clock(), player1, singleplayerMenu.getEnemy())
-        while game.isRunning():
+        while game.isRunnaing():
             game.update()
     
     if (menu.getMode() == Mode.MULTIPLAYER):

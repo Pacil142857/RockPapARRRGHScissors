@@ -188,60 +188,55 @@ class Game:
                     
             elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS:
                 if self.player1.isReady() and self.player2.isReady():
-
-
-                    
                     #rock is cutlass
                     #paper is flintlock
                     #scissors is blunder 
                     choice1 = self.player1.getChosenAttack().getChoice()
                     choice2 = self.player2.getChosenAttack().getChoice()
                     
-                    # stringChoice1 = ''
-                    # stringChoice2 = ''
+                    stringChoice1 =''
+                    stringChoice2=''
 
-                    # if(choice1 == AttackChoice.ROCK):
-                    #     stringChoice1 
-                    # elif (choice1 == AttackChoice.PAPER):
-                    #     stringChoice1
-                    # elif (choice1 == AttackChoice.SCISSORS):
-                    #     stringChoice1
+                    if(choice1 == AttackChoice.ROCK):
+                        stringChoice1 = 'Flint'
+                    elif (choice1 == AttackChoice.PAPER):
+                        stringChoice1 = 'Cut'
+                    elif (choice1 == AttackChoice.SCISSORS):
+                        stringChoice1 = 'Blund'
 
-                    # if(choice2 == AttackChoice.ROCK):
-                    #     stringChoice2 = ''
-                    # elif (choice2 == AttackChoice.PAPER):
-                    #     stringChoice2
-                    # elif (choice2 == AttackChoice.SCISSORS):
-                    #     stringChoice2
-                    
-                    #TODO: check for state and play correct anim
-                    #TODO: add all anims. 
-                    self._attack_animation_playing = True
-                    self._attack_animation_images = self.load_sprites(f"assets{os.sep}images{os.sep}BlueBlundRedBlund") #temporary
-                    self._attack_animation_index = 0
-                    self._attack_animation_image = self._attack_animation_images[self._attack_animation_index]
-
-
-
-
-
-
+                    if(choice2 == AttackChoice.ROCK):
+                        stringChoice2 = 'Flint'
+                    elif (choice2 == AttackChoice.PAPER):
+                        stringChoice2 = 'Cut'
+                    elif (choice2 == AttackChoice.SCISSORS):
+                        stringChoice2 = 'Blund'
 
                     is_blunderbuss = self.player1._chosenAttack == AttackChoice.SCISSORS and self.player2._chosen_attack == AttackChoice.SCISSORS
                     result = self.player1.fight(self.player2)
-
+                    stringResult = ''
                     if result == GameOutcome.WIN:
                         self.player1_sprite.change_anim(result, is_blunderbuss)
                         self.player2_sprite.change_anim(GameOutcome.LOSE, is_blunderbuss)
+                        stringResult = 'Wins'
                         
                     elif result == GameOutcome.LOSE:
                         self.player1_sprite.change_anim(result, is_blunderbuss)
                         self.player2_sprite.change_anim(GameOutcome.WIN, is_blunderbuss)
+                        stringResult = 'Loses'
                         
                     elif result == GameOutcome.TIE:
                         self.player1_sprite.change_anim(result, is_blunderbuss)
                         self.player2_sprite.change_anim(result, is_blunderbuss)
+                        stringResult = 'Ties'
                         
+                    
+                    
+                    stringFileName = 'Red' + stringChoice1 + stringResult + 'Blue' + stringChoice2
+                    
+                    self._attack_animation_playing = True
+                    self._attack_animation_images = self.load_sprites(f"assets{os.sep}images{os.sep}" + stringFileName) #temporary
+                    self._attack_animation_index = 0
+                    self._attack_animation_image = self._attack_animation_images[self._attack_animation_index]
 
                 self.input_window_time_seconds = 0
                 self.countdown.stop()
