@@ -68,6 +68,9 @@ class Player:
     
     def getName(self):
         return self._name
+
+    def getChosenAttack(self):
+        return self._chosenAttack
     
     def setName(self, name):
         self._name = name

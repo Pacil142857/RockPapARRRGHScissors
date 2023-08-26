@@ -20,22 +20,38 @@ class Game:
     GAMEOVER = 3
 
     def __init__(self, game_display, clock, player1, player2):
+        #clock
         self.game_display = game_display
         self.clock = clock
         self.game_running = True
         
         self.width, self.height = self.game_display.get_size()
 
+        #players
         self.player1 = player1
         self.player2 = player2
 
         self.player1_sprite = PlayerSprite(self.player1, "test_character", 2, 100, 100)
         self.player2_sprite = PlayerSprite(self.player2, "test_character", 2, 300, 100)
 
-        self._background_images = self.load_sprites(f"assets{os.sep}images{os.sep}Idle")
-        self._background_index = 0
+        # animated elements
+        self._background_images = self.load_sprites(f"assets{os.sep}images{os.sep}OceanBackground")
+        self._background_index = 0 #starting index
         self._background_image = self._background_images[self._background_index]
 
+        self._idle_images = self.load_sprites(f"assets{os.sep}images{os.sep}Idle")
+        self._idle_index = 0 #starting index
+        self._idle_image = self._idle_images[self._idle_index]
+
+
+        
+
+        self._attack_animation_playing = False
+        self._attack_animation_images = self.load_sprites(f"assets{os.sep}images{os.sep}Idle") #temporary
+        self._attack_animation_index = 0
+        self._attack_animation_image = self._attack_animation_images[self._attack_animation_index]
+
+        #frame things
         self._counting_up = True
         self.frames_per_second = 30
         self.frame_count = 0
@@ -62,36 +78,71 @@ class Game:
         
         pygame.mixer.music.load("music.ogg")
         pygame.mixer.music.play(-1)
-        
+    
     def update(self):
         delta_time_seconds = self.clock.get_time() / 1000
 
         self.game_display.fill((65, 168, 209)) #fill with white color
         
-        #transform background to fit screen
+        
         self._background_image = self._background_images[self._background_index]
+        self._idle_image = self._idle_images[self._idle_index]
 
-         # increment or decrement background index every FPS
+        #p1Hand = self.player1.getHand().getAttack
+
+        # update the attack animation if playing, stop when ended.
+        if(self._attack_animation_playing):
+            self._attack_animation_index += 1
+            if(self._attack_animation_index>=len(self._attack_animation_images)):
+                self._attack_animation_index = 0
+                self._attack_animation_playing = False
+            self._attack_animation_image = self._attack_animation_images[self._attack_animation_index]
+
+        # increment or decrement background index every FPS
         time_per_frame = 1.0 / self.frames_per_second
+
         self.frame_count += 1
         if self.frame_count >= time_per_frame * 100:
-            if self._background_index < len(self._background_images) - 1 and self._counting_up:
-                self._background_index += 1
-            elif self._background_index == len(self._background_images) - 1:
-                self._counting_up = False
-                self._background_index -= 1
-            elif self._background_index > 0 and not self._counting_up:
-                self._background_index -= 1
-            elif self._background_index == 0:
-                self._counting_up = True
-                self._background_index += 1
-            self.frame_count -= time_per_frame * 100
+            #update background
+            self._background_index+=1
+            if(self._background_index>=len(self._background_images)):
+                self._background_index=0
+            #update idle
+            self._idle_index+=1
+            if(self._idle_index>=len(self._idle_images)):
+                self._idle_index=0
 
+            self.frame_count -= time_per_frame * 100 
 
+        #use this if the animations are not looping. All assets in this game will naturally loop. 
+        #this uses _background_index as an example but may be done with the index of any element
+
+        # if self.frame_count >= time_per_frame * 100:
+        #     if self._background_index < len(self._background_images) - 1 and self._counting_up:
+        #         self._background_index += 1
+        #     elif self._background_index == len(self._background_images) - 1:
+        #         self._counting_up = False
+        #         self._background_index -= 1
+        #     elif self._background_index > 0 and not self._counting_up:
+        #         self._background_index -= 1
+        #     elif self._background_index == 0:
+        #         self._counting_up = True
+        #         self._background_index += 1
+        #     self.frame_count -= time_per_frame * 100    
+
+        #transform image
         display_width, display_height = pygame.display.get_surface().get_size()
         self._background = pygame.transform.scale(self._background_image.image, (display_width, display_height * 0.66))
+        self._idle = pygame.transform.scale(self._idle_image.image, (display_width, display_height * 0.66))
+        self._attack_animation = pygame.transform.scale(self._attack_animation_image.image, (display_width, display_height * 0.66))
+        
+        
         self.game_display.blit(self._background, (0, 0))
-
+        if(self._attack_animation_playing):
+            self.game_display.blit(self._attack_animation, (0, 0))
+        else:
+            self.game_display.blit(self._idle, (0, 0))
+        
         if self.gamestate == Game.COUNTDOWN:
             self.update_countdown(delta_time_seconds)
         elif self.gamestate == Game.INTERMISSION:
@@ -137,18 +188,60 @@ class Game:
                     
             elif self.input_window_time_seconds >= Game.INPUT_WINDOW_SECONDS:
                 if self.player1.isReady() and self.player2.isReady():
+
+
+                    
+                    #rock is cutlass
+                    #paper is flintlock
+                    #scissors is blunder 
+                    choice1 = self.player1.getChosenAttack().getChoice()
+                    choice2 = self.player2.getChosenAttack().getChoice()
+                    
+                    # stringChoice1 = ''
+                    # stringChoice2 = ''
+
+                    # if(choice1 == AttackChoice.ROCK):
+                    #     stringChoice1 
+                    # elif (choice1 == AttackChoice.PAPER):
+                    #     stringChoice1
+                    # elif (choice1 == AttackChoice.SCISSORS):
+                    #     stringChoice1
+
+                    # if(choice2 == AttackChoice.ROCK):
+                    #     stringChoice2 = ''
+                    # elif (choice2 == AttackChoice.PAPER):
+                    #     stringChoice2
+                    # elif (choice2 == AttackChoice.SCISSORS):
+                    #     stringChoice2
+                    
+                    #TODO: check for state and play correct anim
+                    #TODO: add all anims. 
+                    self._attack_animation_playing = True
+                    self._attack_animation_images = self.load_sprites(f"assets{os.sep}images{os.sep}BlueBlundRedBlund") #temporary
+                    self._attack_animation_index = 0
+                    self._attack_animation_image = self._attack_animation_images[self._attack_animation_index]
+
+
+
+
+
+
+
                     is_blunderbuss = self.player1._chosenAttack == AttackChoice.SCISSORS and self.player2._chosen_attack == AttackChoice.SCISSORS
                     result = self.player1.fight(self.player2)
 
                     if result == GameOutcome.WIN:
                         self.player1_sprite.change_anim(result, is_blunderbuss)
                         self.player2_sprite.change_anim(GameOutcome.LOSE, is_blunderbuss)
+                        
                     elif result == GameOutcome.LOSE:
                         self.player1_sprite.change_anim(result, is_blunderbuss)
                         self.player2_sprite.change_anim(GameOutcome.WIN, is_blunderbuss)
+                        
                     elif result == GameOutcome.TIE:
                         self.player1_sprite.change_anim(result, is_blunderbuss)
                         self.player2_sprite.change_anim(result, is_blunderbuss)
+                        
 
                 self.input_window_time_seconds = 0
                 self.countdown.stop()
@@ -228,6 +321,9 @@ class Game:
         x = self.width // 4 * 3 - sideLen // 2
         p2Triangle = pygame.transform.scale(p2Triangle, (sideLen, sideLen))
         self.game_display.blit(p2Triangle, (x, y, sideLen, sideLen))
+    
+
+    
     
     def isRunning(self):
         return self.game_running
